@@ -1,15 +1,17 @@
-import type i18nPluginLocaleData from "./types.js";
+import type { I18nPluginLocaleData } from "../../shared/types.js";
 
 const getDateString = (timestamp: number) => {
   const date = new Date(timestamp);
   return `${date.getFullYear()}年${date.getMonth()}月${date.getDate()}日`;
 };
-const zhLocaleData: i18nPluginLocaleData = {
+const zhLocaleData: I18nPluginLocaleData = {
   lang: "zh-CN",
   untranslated: {
     title: "提示",
     content: (guideLink) =>
-      `此页面尚未翻译，在[此处](${guideLink}了解如何帮我们翻译~`,
+      `此页面尚未翻译${
+        guideLink ? `，在[此处](${guideLink})了解如何帮我们翻译` : ""
+      }。`,
   },
   outdated: {
     title: "警告",

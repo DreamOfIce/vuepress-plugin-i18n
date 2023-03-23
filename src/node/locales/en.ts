@@ -1,4 +1,4 @@
-import type i18nPluginLocaleData from "./types.js";
+import type { I18nPluginLocaleData } from "../../shared/types.js";
 
 const months = [
   "January",
@@ -22,12 +22,14 @@ const getDateString = (timestamp: number) => {
   } ${date.getFullYear()}`;
 };
 
-const englishLocaleData: i18nPluginLocaleData = {
+const englishLocaleData: I18nPluginLocaleData = {
   lang: "en-US",
   untranslated: {
     title: "Notice",
     content: (guideLink) =>
-      `This page has not yet been translated, see how you can help [here](${guideLink})`,
+      `This page has not yet been translated${
+        guideLink ? `, see how you can help [here](${guideLink})` : ""
+      }.`,
   },
   outdated: {
     title: "Warning",

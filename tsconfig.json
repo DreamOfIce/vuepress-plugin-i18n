@@ -2,6 +2,6 @@
   "extends": "@tsconfig/node-lts-strictest-esm/tsconfig.json",
   "include": [
     "src/**/*",
-    "tsup.config.ts"
-  ],
+    "vite.config.ts"
+  ]
 }
