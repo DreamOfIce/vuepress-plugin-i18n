@@ -24,4 +24,4 @@ const zhLocaleData: I18nPluginLocaleData = {
   },
 };
 
-export { zhLocaleData };
+export default zhLocaleData;

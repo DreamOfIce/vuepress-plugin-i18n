@@ -15,7 +15,7 @@ interface I18nPluginTipOptions {
 interface I18nPluginInternalOptions {
   tip: I18nPluginTipOptions;
   filter: (page: Page) => boolean;
-  locales: Record<string, Omit<I18nPluginLocaleData, "lang">>;
+  locales: Record<string, Partial<I18nPluginLocaleData>>;
   guideLink?: string;
 }
 

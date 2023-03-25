@@ -5,7 +5,7 @@ import {
   PageFrontmatter,
 } from "@vuepress/core";
 import { colors } from "@vuepress/utils";
-import { isSourcePage, logger } from "./helper.js";
+import { isSourcePage, logger } from "../utils.js";
 import type { I18nPluginInternalOptions } from "../options.js";
 
 async function fillUntranslatedPages(
@@ -17,6 +17,7 @@ async function fillUntranslatedPages(
     (path) => path !== "/"
   );
   const renderList: Promise<Page>[] = [];
+
   for (const page of app.pages) {
     if (isSourcePage(page) && options.filter(page)) {
       const pagePaths = app.pages.map((p) => p.path);

@@ -1,9 +1,29 @@
-import type { Page } from "@vuepress/core";
+import type { Page, SiteData } from "@vuepress/core";
 import { checkGitRepo } from "@vuepress/plugin-git";
 import { colors } from "@vuepress/utils";
+import { deepmerge } from "deepmerge-ts";
 import type { Formatter } from "picocolors/types";
+import pluginLocaleData from "./locales";
+import type { I18nPluginInternalOptions } from "./options";
 
 const PLUGIN_NAME = "vuepress-plugin-i18n";
+
+const getLocales = (
+  siteData: SiteData,
+  customLocales: I18nPluginInternalOptions["locales"]
+) =>
+  Object.fromEntries(
+    Object.entries(siteData.locales).map(([path, { lang = siteData.lang }]) => [
+      path,
+      deepmerge(
+        customLocales[lang],
+        pluginLocaleData[lang] ??
+          pluginLocaleData[siteData.lang] ??
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          pluginLocaleData["en-US"]!
+      ),
+    ])
+  );
 
 const insertAfterFrontmatter = (content: string, data: string) => {
   const regexp = /^---$/gm;
@@ -41,4 +61,11 @@ const logger = (level: keyof typeof logColor, ...message: string[]) => {
   );
 };
 
-export { PLUGIN_NAME, logger, insertAfterFrontmatter, isGitRepo, isSourcePage };
+export {
+  PLUGIN_NAME,
+  getLocales,
+  insertAfterFrontmatter,
+  isGitRepo,
+  isSourcePage,
+  logger,
+};

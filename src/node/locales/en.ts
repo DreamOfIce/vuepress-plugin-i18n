@@ -22,7 +22,7 @@ const getDateString = (timestamp: number) => {
   } ${date.getFullYear()}`;
 };
 
-const englishLocaleData: I18nPluginLocaleData = {
+const enLocaleData: I18nPluginLocaleData = {
   lang: "en-US",
   untranslated: {
     title: "Notice",
@@ -41,4 +41,4 @@ const englishLocaleData: I18nPluginLocaleData = {
       )}) is available on the source page. [View the original page](${sourceLink})`,
   },
 };
-export { englishLocaleData };
+export default enLocaleData;

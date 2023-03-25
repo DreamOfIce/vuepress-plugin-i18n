@@ -1,33 +1,47 @@
 <script lang="ts">
-import type { I18nPluginLocaleData } from "../../shared/types";
-
 declare const I18N_PLUGIN_CONTAINER_CLASS: string[];
 declare const I18N_PLUGIN_TITLE_CLASS: string[];
 declare const I18N_PLUGIN_GUIDE_LINK: string | undefined;
-declare const I18N_PLUGIN_LOCALES: I18nPluginLocaleData;
-
 </script>
 
 <script setup lang="ts">
 import { usePageData } from "@vuepress/client";
-import type { PageData } from "../../shared/types.js";
+import { computed } from "vue";
+//@ts-expect-error 2307
+import { locales } from "@temp/i18n-locales";
+import type { PageData } from "../../shared/types";
+
 const containerClass = I18N_PLUGIN_CONTAINER_CLASS;
 const titleClass = I18N_PLUGIN_TITLE_CLASS;
-const locales = I18N_PLUGIN_LOCALES;
 const guideLink = I18N_PLUGIN_GUIDE_LINK;
 
 const pageData = usePageData<PageData>();
-const showTips = pageData.value?.i18n?.untranslated || pageData.value?.i18n?.outdated;
-const tipType = pageData.value?.i18n?.untranslated ? "untranslated" : "outdated";
-const containerType = tipType === "untranslated" ? "tip" : "warning";
-const containerTitle = locales[tipType].title;
-const containerContent = tipType === "untranslated" ? locales.untranslated.content(guideLink) : locales.outdated.content(pageData.value.i18n!.updatedTime!, pageData.value.i18n!.sourceUpdatedTime!, pageData.value.i18n!.sourceLink!);
-
+console.log(pageData.value);
+const locale = locales[pageData.value.i18n?.localePath!] ?? locales["/"]!;
+const showTips = computed(
+  () => pageData.value.i18n?.untranslated || pageData.value.i18n?.outdated
+);
+const tipType = computed(() =>
+  pageData.value.i18n?.untranslated ? "untranslated" : "outdated"
+);
+const containerType = computed(() =>
+  tipType.value === "untranslated" ? "tip" : "warning"
+);
+const containerTitle = computed(() => locale[tipType.value].title);
+const containerContent = computed(() =>
+  tipType.value === "untranslated"
+    ? locale.untranslated.content(guideLink)
+    : locale.outdated.content(
+        pageData.value.i18n?.updatedTime!,
+        pageData.value.i18n?.sourceUpdatedTime!,
+        pageData.value.i18n?.sourceLink!
+      )
+);
 </script>
 
 <template>
-  <div :class="containerClass">
-    <p v-if="showTips" :class="[...titleClass, containerType]">
+  <div v-if="showTips" :class="containerClass">
+    <p :class="[...titleClass, containerType]">
       {{ containerTitle }}
     </p>
     <p>
@@ -35,4 +49,3 @@ const containerContent = tipType === "untranslated" ? locales.untranslated.conte
     </p>
   </div>
 </template>
-

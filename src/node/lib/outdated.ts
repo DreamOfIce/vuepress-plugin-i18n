@@ -1,6 +1,6 @@
 import type { App } from "@vuepress/core";
 import type { Page } from "../../shared/types.js";
-import { isGitRepo, isSourcePage, logger } from "./helper.js";
+import { isGitRepo, isSourcePage, logger } from "../utils.js";
 
 function isOutdated(page: Page, app: App) {
   const cwd = app.dir.source();

@@ -37,14 +37,16 @@ interface I18nPluginLocaleData {
     ) => string;
   };
 }
+
 interface I18nData {
-  localePath?: string;
+  localePath: string;
   outdated?: boolean;
   sourceLink?: string;
   sourceUpdatedTime?: number;
-  untranslated?: boolean;
+  untranslated: boolean;
   updatedTime?: number;
 }
+
 interface I18nPluginPageData {
   i18n?: I18nData;
   /** mayby added by @vuepress/plugin-git */
