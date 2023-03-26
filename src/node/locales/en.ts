@@ -4,14 +4,16 @@ const enLocaleData: I18nPluginLocaleData = {
   lang: "en-US",
   untranslated: {
     title: "Notice",
-    content: (guideLink) =>
+    content: (linkRenderer, guideLink) =>
       `This page has not yet been translated${
-        guideLink ? `, see how you can help [here](${guideLink})` : ""
+        guideLink
+          ? `, see how you can help ${linkRenderer("here", guideLink)}`
+          : ""
       }.`,
   },
   outdated: {
     title: "Warning",
-    content: (sourceTime, translationTime, sourceLink) => {
+    content: (sourceTime, translationTime, sourceLink, linkRenderer) => {
       const months = [
         "January",
         "February",
@@ -38,7 +40,10 @@ const enLocaleData: I18nPluginLocaleData = {
         translationTime
       )} and an updated version (${getDateString(
         sourceTime
-      )}) is available on the source page. [View the original page](${sourceLink})`;
+      )}) is available on the source page. ${linkRenderer(
+        "View the original page",
+        sourceLink
+      )}`;
     },
   },
 };

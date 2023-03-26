@@ -8,16 +8,16 @@ declare const I18N_PLUGIN_GUIDE_LINK: string | undefined;
 import { usePageData } from "@vuepress/client";
 import { computed } from "vue";
 //@ts-expect-error 2307
-import { locales } from "@temp/i18n-locales";
-import type { PageData } from "../../shared/types";
+import { linkRenderer, locales } from "@temp/i18n-locales";
+import type { I18nPluginLocaleData, PageData } from "../../shared/types";
 
 const containerClass = I18N_PLUGIN_CONTAINER_CLASS;
 const titleClass = I18N_PLUGIN_TITLE_CLASS;
 const guideLink = I18N_PLUGIN_GUIDE_LINK;
 
 const pageData = usePageData<PageData>();
-console.log(pageData.value);
-const locale = locales[pageData.value.i18n?.localePath!] ?? locales["/"]!;
+const locale = (locales[pageData.value.i18n?.localePath!] ??
+  locales["/"]!) as I18nPluginLocaleData;
 const showTips = computed(
   () => pageData.value.i18n?.untranslated || pageData.value.i18n?.outdated
 );
@@ -30,18 +30,19 @@ const containerType = computed(() =>
 const containerTitle = computed(() => locale[tipType.value].title);
 const containerContent = computed(() =>
   tipType.value === "untranslated"
-    ? locale.untranslated.content(guideLink)
+    ? locale.untranslated.content(linkRenderer, guideLink)
     : locale.outdated.content(
         pageData.value.i18n?.updatedTime!,
         pageData.value.i18n?.sourceUpdatedTime!,
-        pageData.value.i18n?.sourceLink!
+        pageData.value.i18n?.sourceLink!,
+        linkRenderer
       )
 );
 </script>
 
 <template>
-  <div v-if="showTips" :class="containerClass">
-    <p :class="[...titleClass, containerType]">
+  <div v-if="showTips" :class="[...containerClass, containerType]">
+    <p :class="titleClass">
       {{ containerTitle }}
     </p>
     <p>

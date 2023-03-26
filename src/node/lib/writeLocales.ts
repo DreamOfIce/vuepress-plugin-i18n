@@ -37,7 +37,10 @@ const writeLocales = async (
 ) => {
   await app.writeTemp(
     "i18n-locales.js",
-    `export const locales = ${getCodeStr(locales)};`
+    `export const linkRenderer = (text: string, href: string) => \`${app.markdown.renderInline(
+      "[${text}]($href}"
+    )}\`;
+    export const locales = ${getCodeStr(locales)};`
   );
   logger("info", "I18n plugin locales has been written.");
 };

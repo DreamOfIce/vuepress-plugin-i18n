@@ -1,5 +1,12 @@
 import type { Page as _Page, PageData as _PageData } from "@vuepress/core";
 import type { GitData } from "@vuepress/plugin-git";
+/**
+ * Render link html
+ * @param text link text
+ * @param href target URL
+ * @returns html string
+ */
+declare function RenderLink(text: string, href: string): string;
 
 interface I18nPluginLocaleData {
   /**
@@ -13,10 +20,11 @@ interface I18nPluginLocaleData {
     title: string;
     /**
      * Content of the container
-     * @param guideLink Links to translation guides (ignore the relevant section when empty)
-     * @returns Localised text (support Markdown syntax)
+     * @param linkRenderer render link html
+     * @param guideLink links to translation guides (ignore the relevant section when empty)
+     * @returns localised text (support Markdown syntax)
      */
-    content: (guideLink?: string) => string;
+    content: (linkRenderer: typeof RenderLink, guideLink?: string) => string;
   };
   outdated: {
     /**
@@ -25,15 +33,17 @@ interface I18nPluginLocaleData {
     title: string;
     /**
      * Content of the container
-     * @param sourceUpdateTime Unix timestamp for source page
-     * @param translationUpdateTime Unix timestamp for translation page
-     * @param sourceLink
-     * @returns Localised text (support Markdown syntax)
+     * @param sourceUpdateTime unix timestamp for source page
+     * @param translationUpdateTime unix timestamp for translation page
+     * @param sourceLink url of the source page
+     * @param linkRenderer render link html
+     * @returns localised text (support Markdown syntax)
      */
     content: (
       sourceUpdateTime: number,
       translationUpdateTime: number,
-      sourceLink: string
+      sourceLink: string,
+      linkRenderer: typeof RenderLink
     ) => string;
   };
 }

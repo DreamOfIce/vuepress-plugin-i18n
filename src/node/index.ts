@@ -44,8 +44,10 @@ const i18nPlugin =
       },
       onInitialized: async (app) => {
         isInited = true;
-        for (const page of app.pages) isOutdated(page, app);
-        await fillUntranslatedPages(app, options);
+        for (const page of app.pages) {
+          isOutdated(page, app);
+          await fillUntranslatedPages(page, app);
+        }
       },
       onPrepared: async (app) =>
         await writeLocales(app, getLocales(app.siteData, locales)),
