@@ -1,9 +1,5 @@
 import type { I18nPluginLocaleData } from "../../shared/types.js";
 
-const getDateString = (timestamp: number) => {
-  const date = new Date(timestamp);
-  return `${date.getFullYear()}年${date.getMonth()}月${date.getDate()}日`;
-};
 const zhLocaleData: I18nPluginLocaleData = {
   lang: "zh-CN",
   untranslated: {
@@ -15,12 +11,17 @@ const zhLocaleData: I18nPluginLocaleData = {
   },
   outdated: {
     title: "警告",
-    content: (sourceUpdateTime, translationUpdateTime, sourceLink) =>
-      `本页面最后修改于${getDateString(
+    content: (sourceUpdateTime, translationUpdateTime, sourceLink) => {
+      const getDateString = (timestamp: number) => {
+        const date = new Date(timestamp);
+        return `${date.getFullYear()}年${date.getMonth()}月${date.getDate()}日`;
+      };
+      return `本页面最后修改于${getDateString(
         translationUpdateTime
       )}，原文已在${getDateString(
         sourceUpdateTime
-      )}更新。[查看原文](${sourceLink})`,
+      )}更新。[查看原文](${sourceLink})`;
+    },
   },
 };
 

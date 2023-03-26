@@ -31,7 +31,7 @@ const i18nPlugin =
       },
       clientConfigFile: path.resolve(__dirname, "..", "client", "config.js"),
       extendsPage: async (page: Page, app: App) => {
-        if (options.filter(page)) {
+        if (options.filter(page) || page.frontmatter["generatedByI18n"]) {
           await addPageData(page, cwd);
           if (isInited) isOutdated(page, app);
           if (options.tip.enable) {
@@ -46,9 +46,6 @@ const i18nPlugin =
         isInited = true;
         for (const page of app.pages) isOutdated(page, app);
         await fillUntranslatedPages(app, options);
-        console.log(
-          app.pages.filter((page: Page) => page.data.i18n?.untranslated)
-        );
       },
       onPrepared: async (app) =>
         await writeLocales(app, getLocales(app.siteData, locales)),

@@ -30,14 +30,13 @@ async function fillUntranslatedPages(
           frontmatter: {
             ...page.frontmatter,
             untranslated: true,
+            generatedByI18n: true,
           } as PageFrontmatter,
         };
         if (page.filePathRelative) {
-          Object.assign(pageOptions, {
-            filePath: app.dir.source(
-              `${prefix.slice(1)}${page.filePathRelative}`
-            ),
-          });
+          pageOptions.frontmatter["filePathRelative"] = `${prefix.slice(1)}${
+            page.filePathRelative
+          }`;
         }
 
         renderList.push(createPage(app, pageOptions));

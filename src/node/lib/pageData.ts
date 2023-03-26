@@ -8,9 +8,11 @@ const addPageData = async (page: Page, cwd: string) => {
     untranslated:
       (page.frontmatter["untranslated"] as boolean | undefined) ?? false,
   };
-  if (page.frontmatter["untranslated"])
-    console.log("i18nData", page.path, page.data.i18n);
+
+  page.filePathRelative ??= page.frontmatter["filePathRelative"] as string;
+  delete page.frontmatter["filePathRelative"];
   delete page.frontmatter["untranslated"];
+  delete page.frontmatter["generatedByI18n"];
 
   if (page.pathLocale !== "/") {
     page.data.i18n.sourceLink = page.path.replace(page.pathLocale, "/");

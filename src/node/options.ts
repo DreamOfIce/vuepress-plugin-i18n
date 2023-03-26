@@ -8,14 +8,41 @@ type DeepPartial<T> = T extends object
   : T;
 
 interface I18nPluginTipOptions {
+  /**
+   * Enable tip containers
+   * @default true
+   */
   enable: boolean;
+  /**
+   * Classes of the container div
+   * @default ["custom-container", "hint-container"]
+   */
   containerClass: string[];
+  /**
+   * Classes of the container title
+   * @default ["custom-container-title", "hint-container-title"]
+   */
   titleClass: string[];
 }
 interface I18nPluginInternalOptions {
+  /**
+   * Tip container options
+   * @see I18nPluginTipOptions
+   */
   tip: I18nPluginTipOptions;
+  /**
+   * Page filter
+   * @param page Vuepress page object
+   * @returns Whether the page should be included
+   */
   filter: (page: Page) => boolean;
+  /**
+   * Custom locales for i18n plugin
+   */
   locales: Record<string, Partial<I18nPluginLocaleData>>;
+  /**
+   * Link to translation guide(without locale path)
+   */
   guideLink?: string;
 }
 

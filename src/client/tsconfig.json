@@ -2,5 +2,5 @@
   "extends": "@vue/tsconfig/tsconfig.json",
   "compilerOptions": {
     "noUncheckedIndexedAccess": true,
-  }
+  },
 }
