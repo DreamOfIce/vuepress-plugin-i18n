@@ -45,8 +45,6 @@ const containerContent = computed(() =>
     <p :class="titleClass">
       {{ containerTitle }}
     </p>
-    <p>
-      {{ containerContent }}
-    </p>
+    <p v-html="containerContent"></p>
   </div>
 </template>
