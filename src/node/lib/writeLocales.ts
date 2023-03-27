@@ -35,13 +35,18 @@ const writeLocales = async (
   app: App,
   locales: Record<string, I18nPluginLocaleData>
 ) => {
+  const md = app.markdown;
+  // eslint-disable-next-line @typescript-eslint/unbound-method
+  const originalNormalizeLink = md.normalizeLink; // avoid escapes
+  md.normalizeLink = (url) => url;
   await app.writeTemp(
     "i18n-locales.js",
-    `export const linkRenderer = (text, href) => \`${app.markdown.renderInline(
+    `export const linkRenderer = (text, href) => \`${md.renderInline(
       "[${text}](${href})"
     )}\`;
     export const locales = ${getCodeStr(locales)};`
   );
+  md.normalizeLink = originalNormalizeLink;
   logger("info", "I18n plugin locales has been written.");
 };
 
