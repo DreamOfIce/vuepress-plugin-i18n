@@ -1,18 +1,19 @@
 import { getUpdatedTime } from "@vuepress/plugin-git";
-import type { Page } from "../../shared/types";
+import type { I18nPluginTempFrontmatter, Page } from "../../shared/types";
 import { isGitRepo } from "../utils";
 
 const addPageData = async (page: Page, cwd: string) => {
+  const i18nFrontmatter = page.frontmatter[
+    "_i18n"
+  ] as I18nPluginTempFrontmatter;
   page.data.i18n = {
-    localePath: page.pathLocale,
-    untranslated:
-      (page.frontmatter["untranslated"] as boolean | undefined) ?? false,
+    localePath: i18nFrontmatter.localePath ?? page.pathLocale,
+    untranslated: i18nFrontmatter.untranslated ?? false,
   };
+  if (i18nFrontmatter.filePathRelative)
+    page.filePathRelative ??= i18nFrontmatter.filePathRelative;
 
-  page.filePathRelative ??= page.frontmatter["filePathRelative"] as string;
-  delete page.frontmatter["filePathRelative"];
-  delete page.frontmatter["untranslated"];
-  delete page.frontmatter["generatedByI18n"];
+  delete page.frontmatter["_i18n"];
 
   if (page.pathLocale !== "/") {
     page.data.i18n.sourceLink = page.path.replace(page.pathLocale, "/");

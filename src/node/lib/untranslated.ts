@@ -1,10 +1,6 @@
-import {
-  type App,
-  createPage,
-  type Page,
-  PageFrontmatter,
-} from "@vuepress/core";
+import { type App, createPage, type Page } from "@vuepress/core";
 import { colors } from "@vuepress/utils";
+import type { I18nPluginTempFrontmatter } from "../../shared/types.js";
 import { isSourcePage, logger } from "../utils.js";
 
 async function fillUntranslatedPages(page: Page, app: App) {
@@ -24,12 +20,14 @@ async function fillUntranslatedPages(page: Page, app: App) {
 
         frontmatter: {
           ...page.frontmatter,
-          untranslated: true,
-          generatedByI18n: true,
-        } as PageFrontmatter,
+          _i18n: {
+            localePath: prefix,
+            untranslated: true,
+          } as I18nPluginTempFrontmatter,
+        },
       };
       if (page.filePathRelative) {
-        pageOptions.frontmatter["filePathRelative"] = `${prefix.slice(1)}${
+        pageOptions.frontmatter._i18n.filePathRelative = `${prefix.slice(1)}${
           page.filePathRelative
         }`;
       }

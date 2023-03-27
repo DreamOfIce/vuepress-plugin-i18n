@@ -48,6 +48,12 @@ interface I18nPluginLocaleData {
   };
 }
 
+interface I18nPluginTempFrontmatter {
+  filePathRelative?: string;
+  localePath?: string;
+  untranslated?: boolean;
+}
+
 interface I18nData {
   localePath: string;
   outdated?: boolean;
@@ -67,6 +73,7 @@ type Page = _Page<I18nPluginPageData>;
 type PageData = _PageData<I18nPluginPageData>;
 
 export type {
+  I18nPluginTempFrontmatter,
   I18nData,
   I18nPluginLocaleData,
   I18nPluginPageData,

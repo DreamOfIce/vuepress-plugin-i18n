@@ -16,8 +16,11 @@ const titleClass = I18N_PLUGIN_TITLE_CLASS;
 const guideLink = I18N_PLUGIN_GUIDE_LINK;
 
 const pageData = usePageData<PageData>();
-const locale = (locales[pageData.value.i18n?.localePath!] ??
-  locales["/"]!) as I18nPluginLocaleData;
+const locale = computed(
+  () =>
+    (locales[pageData.value.i18n?.localePath!] ??
+      locales["/"]) as I18nPluginLocaleData
+);
 const showTips = computed(
   () => pageData.value.i18n?.untranslated || pageData.value.i18n?.outdated
 );
@@ -27,11 +30,11 @@ const tipType = computed(() =>
 const containerType = computed(() =>
   tipType.value === "untranslated" ? "tip" : "warning"
 );
-const containerTitle = computed(() => locale[tipType.value].title);
+const containerTitle = computed(() => locale.value[tipType.value].title);
 const containerContent = computed(() =>
   tipType.value === "untranslated"
-    ? locale.untranslated.content(linkRenderer, guideLink)
-    : locale.outdated.content(
+    ? locale.value.untranslated.content(linkRenderer, guideLink)
+    : locale.value.outdated.content(
         pageData.value.i18n?.updatedTime!,
         pageData.value.i18n?.sourceUpdatedTime!,
         pageData.value.i18n?.sourceLink!,
