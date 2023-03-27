@@ -8,10 +8,10 @@ function isOutdated(page: Page, app: App) {
     const langPrefix = page.pathLocale;
     const translationPath = page.path;
     const sourcePath = translationPath.replace(langPrefix, "/");
-    const sourcePage = app.pages.find((p) => p.path === sourcePath) as Page;
-    const sourceUpdateTime = sourcePage.data.i18n?.updatedTime;
+    const sourcePage = (app.pages as Page[]).find((p) => p.path === sourcePath);
+    const sourceUpdateTime = sourcePage?.data?.i18n?.updatedTime;
     const translationUpdateTime = page.data.i18n?.updatedTime;
-    if (!sourceUpdateTime || !translationUpdateTime) return;
+    if (!sourcePage || !sourceUpdateTime || !translationUpdateTime) return;
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     page.data.i18n!.sourceUpdatedTime = sourceUpdateTime;
     if (sourceUpdateTime > translationUpdateTime) {

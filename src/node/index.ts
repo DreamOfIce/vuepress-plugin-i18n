@@ -44,10 +44,14 @@ const i18nPlugin =
       },
       onInitialized: async (app) => {
         isInited = true;
-        for (const page of app.pages) {
-          isOutdated(page, app);
-          await fillUntranslatedPages(page, app);
-        }
+        await Promise.all(
+          app.pages.map(async (page) => {
+            if (options.filter(page)) {
+              isOutdated(page, app);
+              await fillUntranslatedPages(page, app);
+            }
+          })
+        );
       },
       onPrepared: async (app) =>
         await writeLocales(app, getLocales(app.siteData, locales)),
