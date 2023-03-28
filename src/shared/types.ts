@@ -11,24 +11,25 @@ declare function RenderLink(text: string, href: string): string;
 interface I18nPluginLocaleData {
   /**
    * @description RFC5646 Language code
+   * @example "en-US", "zh-CN"
    */
   lang: string;
   untranslated: {
     /**
-     * @description Title of tips container
+     * @description Title of untranslated page tip
      */
     title: string;
     /**
      * Content of the container
      * @param linkRenderer render link html
      * @param guideLink links to translation guides (ignore the relevant section when empty)
-     * @returns localised text (support Markdown syntax)
+     * @returns localised text
      */
     content: (linkRenderer: typeof RenderLink, guideLink?: string) => string;
   };
   outdated: {
     /**
-     * @description Title of warning container
+     * @description Title of obsolete page tip
      */
     title: string;
     /**
@@ -37,7 +38,7 @@ interface I18nPluginLocaleData {
      * @param translationUpdateTime unix timestamp for translation page
      * @param sourceLink url of the source page
      * @param linkRenderer render link html
-     * @returns localised text (support Markdown syntax)
+     * @returns localised text
      */
     content: (
       sourceUpdateTime: number,

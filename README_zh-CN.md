@@ -1,30 +1,32 @@
 # vuepress-plugin-i18n
 
-I18n plugin for [Vuepress v2](https://github.com/vuepress/vuepress-next)
+适用于 [Vuepress v2](https://github.com/vuepress/vuepress-next) 的 i18n 插件
 
-[中文版本](./README_zh-CN.md)
+[English version](./README.md)
 
-## Features
+## 功能
 
-- [x] Fill non-existent pages in translation directories
-- [x] Translation obsolescence alert (based on git data)
-- [ ] HMR support
+- [x] 填充翻译目录下不存在的页面
+- [x] 翻译过时提示(基于 git 数据)
+- [ ] HMR 支持
 
-## Usage
+## 食用方法
 
-### Install
+### 安装插件
+
+> 在大多数场景中(特别是 monorepo), 建议将本插件以及 vuepress 作为开发依赖安装:
 
 ```shell
 npm install -D vuepress-plugin-i18n
 ```
 
-Or using `pnpm`:
+或者使用`pnpm`:
 
 ```shell
 pnpm add -D vuepress-plugin-i18n
 ```
 
-### Enable plugin
+### 添加插件
 
 ```ts
 import { defineUserConfig } from "vuepress";
@@ -34,69 +36,69 @@ export default defineUserConfig({
   // ...
   plugins: [
     i18nPlugin({
-      // plugin options
+      // 插件配置
     }),
   ],
 });
 ```
 
-## Options
+### 配置
 
 ```ts
-interface I18nPluginInternalOptions {
+interface I18nPluginOptions {
   /**
-   * Tip container options
+   * 提示功能配置, false 表示禁用
    * @see I18nPluginTipOptions
    * @default true
    */
   tip?: I18nPluginTipOptions | boolean;
   /**
-   * Page filter
-   * @param page Vuepress page object
-   * @returns Whether the page should be included
+   * 页面过滤器, 默认包含主页外所有由 markdown 文件生成的页面
+   * @param page Vuepress的 page 对象
+   * @returns 插件是否应该包含此页面
    */
   filter?: (page: Page) => boolean;
   /**
-   * Custom locales for i18n plugin
+   * 自定义本地化配置, 应为一个以路径前缀为键，本地化数据为值的对象
    */
   locales?: Record<string, Partial<I18nPluginLocaleData>>;
   /**
-   * Link to translation guide(without locale path)
+   * 翻译指南的链接, 为空时不显示
    */
   guideLink?: string;
 }
 
 interface I18nPluginTipOptions {
   /**
-   * Enable tip containers
+   * 是否启用提示功能
    * @default true
    */
-  enable?: boolean;
+  enable: boolean;
   /**
-   * Classes of the container div
+   * 提示框容器的 class, 默认值支持默认主题以及 theme-hope
    * @default ["custom-container", "hint-container"]
    */
-  containerClass?: string[];
+  containerClass: string[];
   /**
-   * Classes of the container title
+   * 提示标题的 class, 默认值支持默认主题以及 theme-hope
    * @default ["custom-container-title", "hint-container-title"]
    */
-  titleClass?: string[];
+  titleClass: string[];
 }
 
 interface I18nPluginLocaleData {
   /**
-   * @description RFC5646 Language code
+   * @description RFC5646 语言代码
    * @example "en-US", "zh-CN"
    */
   lang: string;
   untranslated: {
     /**
-     * @description Title of untranslated page tip
+     * @description Title of tips container
      */
     title: string;
     /**
-     * Content of the container
+     * 过时页面提示信息
      * @param linkRenderer render link html
      * @param guideLink links to translation guides (ignore the relevant section when empty)
      * @returns localised text
@@ -105,7 +107,7 @@ interface I18nPluginLocaleData {
   };
   outdated: {
     /**
-     * @description Title of obsolete page tip
+     * @description Title of warning container
      */
     title: string;
     /**
@@ -125,3 +127,7 @@ interface I18nPluginLocaleData {
   };
 }
 ```
+
+## License
+
+MIT
