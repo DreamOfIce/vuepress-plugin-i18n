@@ -94,29 +94,29 @@ interface I18nPluginLocaleData {
   lang: string;
   untranslated: {
     /**
-     * @description Title of tips container
+     * @description 未翻译页面提示标题
      */
     title: string;
     /**
-     * 过时页面提示信息
-     * @param linkRenderer render link html
-     * @param guideLink links to translation guides (ignore the relevant section when empty)
-     * @returns localised text
+     * 未翻译页面提示信息
+     * @param linkRenderer 链接渲染工具函数
+     * @param guideLink 翻译指南的链接 (可能为空)
+     * @returns 本地化文本
      */
     content: (linkRenderer: typeof RenderLink, guideLink?: string) => string;
   };
   outdated: {
     /**
-     * @description Title of warning container
+     * @description 过时页面提示标题
      */
     title: string;
     /**
-     * Content of the container
-     * @param sourceUpdateTime unix timestamp for source page
-     * @param translationUpdateTime unix timestamp for translation page
-     * @param sourceLink url of the source page
-     * @param linkRenderer render link html
-     * @returns localised text
+     * 过时页面提示信息
+     * @param sourceUpdateTime 源页面更新时间(unix时间戳)
+     * @param translationUpdateTime 翻译更新时间(unix时间戳)
+     * @param sourceLink 源页面链接
+     * @param linkRenderer 链接渲染工具函数
+     * @returns 本地化文本
      */
     content: (
       sourceUpdateTime: number,
@@ -126,6 +126,14 @@ interface I18nPluginLocaleData {
     ) => string;
   };
 }
+
+/**
+ * 链接渲染工具函数
+ * @param text 链接文本
+ * @param href 链接url
+ * @returns html格式的文本
+ */
+declare function RenderLink(text: string, href: string): string;
 ```
 
 ## License

@@ -1,7 +1,8 @@
 import type { Page as _Page, PageData as _PageData } from "@vuepress/core";
 import type { GitData } from "@vuepress/plugin-git";
+
 /**
- * Render link html
+ * Link rendering helper
  * @param text link text
  * @param href target URL
  * @returns html string
@@ -21,7 +22,7 @@ interface I18nPluginLocaleData {
     title: string;
     /**
      * Content of the container
-     * @param linkRenderer render link html
+     * @param linkRenderer link rendering helper
      * @param guideLink links to translation guides (ignore the relevant section when empty)
      * @returns localised text
      */
@@ -37,7 +38,7 @@ interface I18nPluginLocaleData {
      * @param sourceUpdateTime unix timestamp for source page
      * @param translationUpdateTime unix timestamp for translation page
      * @param sourceLink url of the source page
-     * @param linkRenderer render link html
+     * @param linkRenderer link rendering helper
      * @returns localised text
      */
     content: (
