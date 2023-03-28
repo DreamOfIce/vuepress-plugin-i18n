@@ -6,14 +6,14 @@ const addPageData = async (page: Page, cwd: string) => {
   const i18nFrontmatter = page.frontmatter["_i18n"] as
     | I18nPluginTempFrontmatter
     | undefined;
+  if (i18nFrontmatter?.filePathRelative)
+    page.filePathRelative = i18nFrontmatter.filePathRelative;
+
   page.data.i18n = {
     localePath: i18nFrontmatter?.localePath ?? page.pathLocale,
+    sourceLink: page.path.replace(page.pathLocale, "/"),
     untranslated: i18nFrontmatter?.untranslated ?? false,
   };
-  if (i18nFrontmatter?.filePathRelative)
-    page.filePathRelative ??= i18nFrontmatter.filePathRelative;
-  if (page.pathLocale !== "/")
-    page.data.i18n.sourceLink = page.path.replace(page.pathLocale, "/");
 
   delete page.frontmatter["_i18n"];
 

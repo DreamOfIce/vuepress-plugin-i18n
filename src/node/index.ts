@@ -31,7 +31,7 @@ const i18nPlugin =
       },
       clientConfigFile: path.resolve(__dirname, "..", "client", "config.js"),
       extendsPage: async (page: Page, app: App) => {
-        if (options.filter(page) || page.frontmatter["generatedByI18n"]) {
+        if (options.filter(page) || page.frontmatter["_i18n"]) {
           await addPageData(page, cwd);
           if (isInited) isOutdated(page, app);
           if (options.tip.enable) {
