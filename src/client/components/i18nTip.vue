@@ -1,5 +1,3 @@
-<!-- eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain -->
-<!-- eslint-disable @typescript-eslint/no-non-null-assertion -->
 <script setup lang="ts">
 import { usePageData } from "@vuepress/client";
 import {
@@ -9,28 +7,69 @@ import {
   locales,
   titleClass,
 } from "../define";
-import type { PageData } from "../../shared/types";
+import type {
+  I18nData,
+  I18nPluginLocaleData,
+  PageData,
+} from "../../shared/types";
+import { computed } from "vue";
+
+type I18nPluginTipType = "untranslated" | "outdated";
+
+const getContent = (
+  type: I18nPluginTipType,
+  locale: I18nPluginLocaleData,
+  i18nData?: I18nData
+) => {
+  switch (type) {
+    case "untranslated":
+      return locale.untranslated.content(linkRenderer, guideLink);
+    case "outdated":
+      if (
+        !i18nData?.updatedTime ||
+        !i18nData?.sourceUpdatedTime ||
+        !i18nData?.sourceLink
+      ) {
+        return null;
+      } else {
+        return locale.outdated.content(
+          i18nData?.updatedTime,
+          i18nData?.sourceUpdatedTime,
+          i18nData?.sourceLink,
+          linkRenderer
+        );
+      }
+    default:
+      return null;
+  }
+};
 
 const pageData = usePageData<PageData>();
-const locale = locales[pageData.value.i18n?.localePath!] ?? locales["/"];
-const showTips =
-  pageData.value.i18n?.untranslated || pageData.value.i18n?.outdated;
-const tipType = pageData.value.i18n?.untranslated ? "untranslated" : "outdated";
-const containerType = tipType === "untranslated" ? "tip" : "warning";
-const containerTitle = locale[tipType].title;
-const containerContent =
-  tipType === "untranslated"
-    ? locale.untranslated.content(linkRenderer, guideLink)
-    : locale.outdated.content(
-        pageData.value.i18n?.updatedTime!,
-        pageData.value.i18n?.sourceUpdatedTime!,
-        pageData.value.i18n?.sourceLink!,
-        linkRenderer
-      );
+const locale = computed(
+  () => locales[pageData.value.i18n?.localePath ?? "/"] ?? locales["/"]
+);
+const showTips = computed(
+  () => pageData.value.i18n?.untranslated || pageData.value.i18n?.outdated
+);
+const tipType = computed(() =>
+  pageData.value.i18n?.untranslated ? "untranslated" : "outdated"
+);
+const containerType = computed(() =>
+  tipType.value === "untranslated" ? "tip" : "warning"
+);
+const containerTitle = computed(() => locale.value[tipType.value].title);
+const containerContent = computed(() =>
+  showTips.value
+    ? getContent(tipType.value, locale.value, pageData.value.i18n)
+    : null
+);
 </script>
 
 <template>
-  <div v-if="showTips" :class="[...containerClass, containerType]">
+  <div
+    v-if="showTips && containerContent"
+    :class="[...containerClass, containerType]"
+  >
     <p :class="titleClass">
       {{ containerTitle }}
     </p>
