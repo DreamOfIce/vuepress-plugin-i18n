@@ -43,6 +43,7 @@ export default defineUserConfig({
 ## Options
 
 ### Plugin options
+
 ```ts
 interface I18nPluginInternalOptions {
   /**
@@ -85,7 +86,9 @@ interface I18nPluginTipOptions {
   titleClass?: string[];
 }
 ```
+
 ### Localization options
+
 ```ts
 interface I18nPluginLocaleData {
   /**
