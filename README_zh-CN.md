@@ -42,7 +42,9 @@ export default defineUserConfig({
 });
 ```
 
-### 配置
+## 配置
+
+### 插件选项
 
 ```ts
 interface I18nPluginOptions {
@@ -75,7 +77,8 @@ interface I18nPluginTipOptions {
    */
   enable: boolean;
   /**
-   * 提示框容器的 class, 默认值支持默认主题以及 theme-hope
+   * 提示容器的 class, 默认值支持默认主题以及 theme-hope (容器类型始终会被添加)
+   * @
    * @default ["custom-container", "hint-container"]
    */
   containerClass: string[];
@@ -85,7 +88,11 @@ interface I18nPluginTipOptions {
    */
   titleClass: string[];
 }
+```
 
+### 本地化配置
+
+```ts
 interface I18nPluginLocaleData {
   /**
    * @description RFC5646 语言代码
@@ -133,7 +140,7 @@ interface I18nPluginLocaleData {
  * @param href 链接url
  * @returns html格式的文本
  */
-declare function RenderLink(text: string, href: string): string;
+type LinkRenderer = (text: string, href: string) => string;
 ```
 
 ## License

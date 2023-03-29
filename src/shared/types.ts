@@ -7,7 +7,7 @@ import type { GitData } from "@vuepress/plugin-git";
  * @param href target URL
  * @returns html string
  */
-declare function RenderLink(text: string, href: string): string;
+type LinkRenderer = (text: string, href: string) => string;
 
 interface I18nPluginLocaleData {
   /**
@@ -26,7 +26,7 @@ interface I18nPluginLocaleData {
      * @param guideLink links to translation guides (ignore the relevant section when empty)
      * @returns localised text
      */
-    content: (linkRenderer: typeof RenderLink, guideLink?: string) => string;
+    content: (linkRenderer: LinkRenderer, guideLink?: string) => string;
   };
   outdated: {
     /**
@@ -45,7 +45,7 @@ interface I18nPluginLocaleData {
       sourceUpdateTime: number,
       translationUpdateTime: number,
       sourceLink: string,
-      linkRenderer: typeof RenderLink
+      linkRenderer: LinkRenderer
     ) => string;
   };
 }
@@ -79,6 +79,7 @@ export type {
   I18nData,
   I18nPluginLocaleData,
   I18nPluginPageData,
+  LinkRenderer,
   Page,
   PageData,
 };

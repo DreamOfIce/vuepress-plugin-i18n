@@ -4,6 +4,6 @@ import i18nTipComponent from "./components/i18nTip.vue";
 
 export default defineClientConfig({
   enhance({ app }) {
-    app.component("i18nTip", i18nTipComponent as Component);
+    app.component("I18nTip", i18nTipComponent as Component);
   },
 });

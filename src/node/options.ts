@@ -14,7 +14,7 @@ interface I18nPluginTipOptions {
    */
   enable: boolean;
   /**
-   * Classes of the container div
+   * Classes of the container div (type of container will always be add)
    * @default ["custom-container", "hint-container"]
    */
   containerClass: string[];

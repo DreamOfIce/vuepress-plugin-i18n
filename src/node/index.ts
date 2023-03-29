@@ -37,7 +37,7 @@ const i18nPlugin =
           if (options.tip.enable) {
             page.content = insertAfterFrontmatter(
               page.content,
-              "<i18nTip />\n"
+              "<I18nTip />\n"
             );
           }
         }

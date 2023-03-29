@@ -42,6 +42,7 @@ export default defineUserConfig({
 
 ## Options
 
+### Plugin options
 ```ts
 interface I18nPluginInternalOptions {
   /**
@@ -73,7 +74,7 @@ interface I18nPluginTipOptions {
    */
   enable?: boolean;
   /**
-   * Classes of the container div
+   * Classes of the container div (type of container will always be add)
    * @default ["custom-container", "hint-container"]
    */
   containerClass?: string[];
@@ -83,7 +84,9 @@ interface I18nPluginTipOptions {
    */
   titleClass?: string[];
 }
-
+```
+### Localization options
+```ts
 interface I18nPluginLocaleData {
   /**
    * @description RFC5646 Language code
@@ -131,5 +134,5 @@ interface I18nPluginLocaleData {
  * @param href target URL
  * @returns html string
  */
-declare function RenderLink(text: string, href: string): string;
+type LinkRenderer = (text: string, href: string) => string;
 ```
