@@ -13,7 +13,12 @@ const enLocaleData: I18nPluginLocaleData = {
   },
   outdated: {
     title: "Warning",
-    content: (sourceTime, translationTime, sourceLink, linkRenderer) => {
+    content: (
+      linkRenderer,
+      sourceUpdateTime,
+      translationUpdateTime,
+      sourceLink
+    ) => {
       const months = [
         "January",
         "February",
@@ -37,9 +42,9 @@ const enLocaleData: I18nPluginLocaleData = {
       };
 
       return `This translation was modified on ${getDateString(
-        translationTime
+        translationUpdateTime
       )} and an updated version (${getDateString(
-        sourceTime
+        sourceUpdateTime
       )}) is available on the source page. ${linkRenderer(
         "View the original page",
         sourceLink

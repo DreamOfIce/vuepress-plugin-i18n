@@ -35,17 +35,17 @@ interface I18nPluginLocaleData {
     title: string;
     /**
      * Content of the container
+     * @param linkRenderer link rendering helper
      * @param sourceUpdateTime unix timestamp for source page
      * @param translationUpdateTime unix timestamp for translation page
      * @param sourceLink url of the source page
-     * @param linkRenderer link rendering helper
      * @returns localised text
      */
     content: (
+      linkRenderer: LinkRenderer,
       sourceUpdateTime: number,
       translationUpdateTime: number,
-      sourceLink: string,
-      linkRenderer: LinkRenderer
+      sourceLink: string
     ) => string;
   };
 }

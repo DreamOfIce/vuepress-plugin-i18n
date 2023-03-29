@@ -119,10 +119,10 @@ interface I18nPluginLocaleData {
     title: string;
     /**
      * 过时页面提示信息
+     * @param linkRenderer 链接渲染工具函数
      * @param sourceUpdateTime 源页面更新时间(unix时间戳)
      * @param translationUpdateTime 翻译更新时间(unix时间戳)
      * @param sourceLink 源页面链接
-     * @param linkRenderer 链接渲染工具函数
      * @returns 本地化文本
      */
     content: (

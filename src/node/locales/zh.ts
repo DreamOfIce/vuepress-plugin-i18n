@@ -14,10 +14,10 @@ const zhLocaleData: I18nPluginLocaleData = {
   outdated: {
     title: "警告",
     content: (
+      linkRenderer,
       sourceUpdateTime,
       translationUpdateTime,
-      sourceLink,
-      linkRenderer
+      sourceLink
     ) => {
       const getDateString = (timestamp: number) => {
         const date = new Date(timestamp);

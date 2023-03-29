@@ -33,10 +33,10 @@ const getContent = (
         return null;
       } else {
         return locale.outdated.content(
+          linkRenderer,
           i18nData?.updatedTime,
           i18nData?.sourceUpdatedTime,
-          i18nData?.sourceLink,
-          linkRenderer
+          i18nData?.sourceLink
         );
       }
     default:
