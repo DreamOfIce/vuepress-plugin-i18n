@@ -9,6 +9,7 @@ I18n plugin for [Vuepress v2](https://github.com/vuepress/vuepress-next)
 - [x] Fill non-existent pages in translation directories
 - [x] Translation obsolescence alert (based on git data)
 - [ ] HMR support
+- [ ] Development guide
 
 ## Usage
 
@@ -107,7 +108,7 @@ interface I18nPluginLocaleData {
      * @param guideLink links to translation guides (ignore the relevant section when empty)
      * @returns localised text
      */
-    content: (linkRenderer: typeof RenderLink, guideLink?: string) => string;
+    content: (linkRenderer: LinkRenderer, guideLink?: string) => string;
   };
   outdated: {
     /**

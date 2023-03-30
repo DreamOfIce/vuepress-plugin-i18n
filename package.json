@@ -23,9 +23,10 @@
   ],
   "scripts": {
     "build": "vite build",
-    "lint": "pnpm lint:prettier && pnpm lint:eslint",
+    "lint": "pnpm run /^lint:.*/",
     "lint:eslint": "eslint --ext .ts --fix ./src",
     "lint:prettier": "prettier --write .",
+    "prepare": "husky install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "冰雪殇璃陌梦 <admin@dreamofice.cn> (https://www.dreamofice.cn)",
@@ -38,6 +39,7 @@
     "url": "https://github.com/DreamOfIce/vuepress-plugin-i18n/issues"
   },
   "homepage": "https://github.com/DreamOfIce/vuepress-plugin-i18n#readme",
+  "packageManager": "pnpm@8.1.0",
   "dependencies": {
     "@vuepress/client": "2.0.0-beta.61",
     "@vuepress/core": "2.0.0-beta.61",
@@ -46,6 +48,8 @@
     "vue": "^3.2.47"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.5.1",
+    "@commitlint/config-conventional": "^17.4.4",
     "@tsconfig/node-lts-strictest-esm": "^18.12.1",
     "@types/node": "^18.15.3",
     "@typescript-eslint/eslint-plugin": "^5.48.0",
