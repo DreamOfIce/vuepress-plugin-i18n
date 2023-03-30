@@ -1,8 +1,8 @@
-import type { App } from "@vuepress/core";
+import { App, preparePageData } from "@vuepress/core";
 import type { Page } from "../../shared/types.js";
 import { isGitRepo, isSourcePage, logger } from "../utils.js";
 
-function isOutdated(page: Page, app: App) {
+async function isOutdated(page: Page, app: App) {
   const cwd = app.dir.source();
   if (isGitRepo(cwd) && !isSourcePage(page)) {
     const langPrefix = page.pathLocale;
@@ -20,6 +20,7 @@ function isOutdated(page: Page, app: App) {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       page.data.i18n!.outdated = true;
     }
+    await preparePageData(app, page);
   }
 }
 

@@ -24,7 +24,6 @@ const i18nPlugin =
       name: PLUGIN_NAME,
       multiple: false,
       define: {
-        I18N_PLUGIN_LOCALES: getLocales(app.siteData, options.locales),
         I18N_PLUGIN_CONTAINER_CLASS: options.tip.containerClass,
         I18N_PLUGIN_TITLE_CLASS: options.tip.titleClass,
         I18N_PLUGIN_GUIDE_LINK: options.guideLink,
@@ -33,7 +32,7 @@ const i18nPlugin =
       extendsPage: async (page: Page, app: App) => {
         if (options.filter(page) || page.frontmatter["_i18n"]) {
           await addPageData(page, cwd);
-          if (isInited) isOutdated(page, app);
+          if (isInited) await isOutdated(page, app);
           if (options.tip.enable) {
             page.content = insertAfterFrontmatter(
               page.content,
@@ -47,7 +46,7 @@ const i18nPlugin =
         await Promise.all(
           app.pages.map(async (page) => {
             if (options.filter(page)) {
-              isOutdated(page, app);
+              await isOutdated(page, app);
               await fillUntranslatedPages(page, app);
             }
           })

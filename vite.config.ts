@@ -1,4 +1,4 @@
-import { cp, rm } from "fs/promises";
+import { access, cp, rm } from "fs/promises";
 import { basename, dirname, join } from "node:path";
 import { fileURLToPath } from "url";
 import { defineConfig } from "vite";
@@ -25,14 +25,22 @@ export default defineConfig({
     vue(),
     dts({
       rollupTypes: true,
-      // Fix misplaced type after rolluo
+      // Fix misplaced dts files after rollup
       afterBuild: async () => {
         await Promise.all(
           Object.keys(entries).map(async (entry) => {
-            const source = join(__dirname, "dist", `${basename(entry)}.d.ts`);
+            const src = join(__dirname, "dist", `${basename(entry)}.d.ts`);
             const dest = join(__dirname, "dist", `${entry}.d.ts`);
-            await cp(source, dest);
-            await rm(source);
+            try {
+              await access(src);
+              await cp(src, dest);
+              await rm(src);
+            } catch (err) {
+              if (err instanceof Error)
+                console.warn(
+                  `Error while moving ${src} to ${dest}: ${err.message}`
+                );
+            }
           })
         );
       },
