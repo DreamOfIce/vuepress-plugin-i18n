@@ -123,10 +123,10 @@ interface I18nPluginLocaleData {
      * @returns localised text
      */
     content: (
+      linkRenderer: LinkRenderer,
       sourceUpdateTime: number,
       translationUpdateTime: number,
-      sourceLink: string,
-      linkRenderer: typeof RenderLink
+      sourceLink: string
     ) => string;
   };
 }

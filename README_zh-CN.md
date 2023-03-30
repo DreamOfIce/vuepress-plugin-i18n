@@ -110,7 +110,7 @@ interface I18nPluginLocaleData {
      * @param guideLink 翻译指南的链接 (可能为空)
      * @returns 本地化文本
      */
-    content: (linkRenderer: typeof RenderLink, guideLink?: string) => string;
+    content: (linkRenderer: LinkRenderer, guideLink?: string) => string;
   };
   outdated: {
     /**
@@ -126,10 +126,10 @@ interface I18nPluginLocaleData {
      * @returns 本地化文本
      */
     content: (
+      linkRenderer: LinkRenderer,
       sourceUpdateTime: number,
       translationUpdateTime: number,
-      sourceLink: string,
-      linkRenderer: typeof RenderLink
+      sourceLink: string
     ) => string;
   };
 }
