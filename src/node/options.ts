@@ -41,7 +41,7 @@ interface I18nPluginInternalOptions {
    */
   locales: Record<string, Partial<I18nPluginLocaleData>>;
   /**
-   * Link to translation guide(without locale path)
+   * Link to translation guide(in default locale)
    */
   guideLink?: string;
 }

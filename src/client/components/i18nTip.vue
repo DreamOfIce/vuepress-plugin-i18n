@@ -2,7 +2,7 @@
 import { usePageData } from "@vuepress/client";
 import {
   containerClass,
-  guideLink,
+  guideLinks,
   linkRenderer,
   locales,
   titleClass,
@@ -23,7 +23,10 @@ const getContent = (
 ) => {
   switch (type) {
     case "untranslated":
-      return locale.untranslated.content(linkRenderer, guideLink);
+      return locale.untranslated.content(
+        linkRenderer,
+        guideLinks[i18nData?.localePath ?? "/"] ?? guideLinks["/"]
+      );
     case "outdated":
       if (
         !i18nData?.updatedTime ||

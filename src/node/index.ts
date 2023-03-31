@@ -26,7 +26,6 @@ const i18nPlugin =
       define: {
         I18N_PLUGIN_CONTAINER_CLASS: options.tip.containerClass,
         I18N_PLUGIN_TITLE_CLASS: options.tip.titleClass,
-        I18N_PLUGIN_GUIDE_LINK: options.guideLink,
       },
       clientConfigFile: path.resolve(__dirname, "..", "client", "config.js"),
       extendsPage: async (page: Page, app: App) => {
@@ -53,7 +52,7 @@ const i18nPlugin =
         );
       },
       onPrepared: async (app) =>
-        await writeLocales(app, getLocales(app.siteData, locales)),
+        await writeLocales(app, getLocales(app.siteData, locales), options),
     };
   };
 
