@@ -50,18 +50,21 @@ interface I18nPluginLocaleData {
   };
 }
 
-interface I18nPluginTempFrontmatter {
-  filePathRelative?: string;
-  localePath?: string;
-  untranslated?: boolean;
+interface I18nPluginFrontmatter {
+  _i18n?: {
+    filePathRelative?: string;
+    localePath?: string;
+    untranslated?: boolean;
+  };
+  tag?: string[];
 }
 
 interface I18nData {
-  localePath: string;
+  localePath?: string;
   outdated?: boolean;
   sourceLink?: string;
   sourceUpdatedTime?: number;
-  untranslated: boolean;
+  untranslated?: boolean;
   updatedTime?: number;
 }
 
@@ -71,11 +74,11 @@ interface I18nPluginPageData {
   git?: GitData;
 }
 
-type Page = _Page<I18nPluginPageData>;
+type Page = _Page<I18nPluginPageData, I18nPluginFrontmatter>;
 type PageData = _PageData<I18nPluginPageData>;
 
 export type {
-  I18nPluginTempFrontmatter,
+  I18nPluginFrontmatter,
   I18nData,
   I18nPluginLocaleData,
   I18nPluginPageData,

@@ -50,25 +50,30 @@ export default defineUserConfig({
 ```ts
 interface I18nPluginOptions {
   /**
-   * 提示功能配置, false 表示禁用
-   * @see I18nPluginTipOptions
-   * @default true
-   */
-  tip?: I18nPluginTipOptions | boolean;
-  /**
    * 页面过滤器, 默认包含主页外所有由 markdown 文件生成的页面
    * @param page Vuepress的 page 对象
    * @returns 插件是否应该包含此页面
    */
   filter?: (page: Page) => boolean;
   /**
+   * 翻译指南的链接, 为空时不显示
+   */
+  guideLink?: string;
+  /**
    * 自定义本地化配置, 应为一个以路径前缀为键，本地化数据为值的对象
    */
   locales?: Record<string, Partial<I18nPluginLocaleData>>;
   /**
-   * 翻译指南的链接, 为空时不显示
+   * 源语言版本所在的路径
+   * @default "/"
    */
-  guideLink?: string;
+  sourcePath?: string;
+  /**
+   * 提示功能配置, false 表示禁用
+   * @see I18nPluginTipOptions
+   * @default true
+   */
+  tip?: I18nPluginTipOptions | boolean;
 }
 
 interface I18nPluginTipOptions {

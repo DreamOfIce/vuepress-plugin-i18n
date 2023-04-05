@@ -24,12 +24,8 @@ interface I18nPluginTipOptions {
    */
   titleClass: string[];
 }
+
 interface I18nPluginInternalOptions {
-  /**
-   * Tip container options
-   * @see I18nPluginTipOptions
-   */
-  tip: I18nPluginTipOptions;
   /**
    * Page filter
    * @param page Vuepress page object
@@ -37,13 +33,29 @@ interface I18nPluginInternalOptions {
    */
   filter: (page: Page) => boolean;
   /**
+   * Link to translation guide(in default locale)
+   */
+  guideLink?: string;
+  /**
    * Custom locales for i18n plugin
    */
   locales: Record<string, Partial<I18nPluginLocaleData>>;
   /**
-   * Link to translation guide(in default locale)
+   * Prefixes for source language
+   * @default "/"
    */
-  guideLink?: string;
+  sourcePath: string;
+  /**
+   * Tip container options
+   * @see I18nPluginTipOptions
+   */
+  tip: I18nPluginTipOptions;
+  /**
+   * Add tag `untranslated` or `outdated` to page
+   * need to load before [vuepress-plugin-blog2]{@link https://www.npmjs.com/package/vuepress-plugin-blog2}
+   * @default false
+   */
+  tag: boolean;
 }
 
 interface I18nPluginOptions
@@ -52,13 +64,15 @@ interface I18nPluginOptions
 }
 
 const defaultOptions: I18nPluginInternalOptions = {
+  filter: (page) => page.frontmatter["homepage"] !== true && !!page.filePath,
+  locales: {},
+  sourcePath: "/",
   tip: {
     enable: true,
     containerClass: ["custom-container", "hint-container"],
     titleClass: ["custom-container-title", "hint-container-title"],
   },
-  filter: (page) => page.frontmatter["homepage"] !== true && !!page.filePath,
-  locales: {},
+  tag: false,
 };
 
 const getOptions: (options: I18nPluginOptions) => I18nPluginInternalOptions = (

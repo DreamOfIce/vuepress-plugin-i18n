@@ -8,6 +8,9 @@ import type { I18nPluginInternalOptions } from "./options";
 
 const PLUGIN_NAME = "vuepress-plugin-i18n";
 
+const addTipComponent = (page: Page) =>
+  (page.content = insertAfterFrontmatter(page.content, "<I18nTip />\n"));
+
 const getLocales = (
   siteData: SiteData,
   customLocales: I18nPluginInternalOptions["locales"]
@@ -40,8 +43,6 @@ let gitStatus: boolean;
  */
 const isGitRepo = (cwd: string) => gitStatus ?? !checkGitRepo(cwd);
 
-const isSourcePage = (page: Page) => page.pathLocale === "/";
-
 // To solve https://github.com/microsoft/TypeScript/issues/42873
 const logColor = {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
@@ -63,9 +64,9 @@ const logger = (level: keyof typeof logColor, ...message: string[]) => {
 
 export {
   PLUGIN_NAME,
+  addTipComponent,
   getLocales,
   insertAfterFrontmatter,
   isGitRepo,
-  isSourcePage,
   logger,
 };

@@ -1,27 +1,34 @@
-import { App, preparePageData } from "@vuepress/core";
+import type { App } from "@vuepress/core";
 import type { Page } from "../../shared/types.js";
-import { isGitRepo, isSourcePage, logger } from "../utils.js";
+import type { I18nPluginInternalOptions } from "../options.js";
+import { isGitRepo, logger } from "../utils.js";
 
-async function isOutdated(page: Page, app: App) {
+const isOutdated = (
+  page: Page,
+  app: App,
+  options: I18nPluginInternalOptions
+) => {
   const cwd = app.dir.source();
-  if (isGitRepo(cwd) && !isSourcePage(page)) {
+  if (isGitRepo(cwd) && page.pathLocale !== options.sourcePath) {
     const langPrefix = page.pathLocale;
     const translationPath = page.path;
-    const sourcePath = translationPath.replace(langPrefix, "/");
+    const sourcePath = translationPath.replace(langPrefix, options.sourcePath);
     const sourcePage = (app.pages as Page[]).find((p) => p.path === sourcePath);
-    const sourceUpdateTime = sourcePage?.data?.i18n?.updatedTime;
+    const sourceUpdateTime = sourcePage?.data.i18n?.updatedTime;
     const translationUpdateTime = page.data.i18n?.updatedTime;
     if (!sourcePage || !sourceUpdateTime || !translationUpdateTime) return;
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    page.data.i18n!.sourceUpdatedTime = sourceUpdateTime;
+    page.data.i18n ||= {};
+    page.data.i18n.sourceUpdatedTime = sourceUpdateTime;
     if (sourceUpdateTime > translationUpdateTime) {
       if (app.env.isDebug)
         logger("debug", `Out-of-date page detected: ${page.path}`);
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      page.data.i18n!.outdated = true;
+      page.data.i18n.outdated = true;
+      if (options.tag) {
+        page.frontmatter.tag ||= [];
+        page.frontmatter.tag.push("outdated");
+      }
     }
-    await preparePageData(app, page);
   }
-}
+};
 
 export { isOutdated };
