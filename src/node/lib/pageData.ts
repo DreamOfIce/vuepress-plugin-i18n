@@ -1,4 +1,5 @@
 import { getUpdatedTime } from "@vuepress/plugin-git";
+import { path } from "@vuepress/utils";
 import type { I18nPluginFrontmatter, Page } from "../../shared/types";
 import type { I18nPluginInternalOptions } from "../options";
 import { isGitRepo } from "../utils";
@@ -11,9 +12,10 @@ const addPageData = async (
   const i18nFrontmatter = (page.frontmatter as I18nPluginFrontmatter)["_i18n"];
   if (i18nFrontmatter?.filePathRelative)
     page.filePathRelative = i18nFrontmatter.filePathRelative;
+  if (i18nFrontmatter?.pathLocale) page.pathLocale = i18nFrontmatter.pathLocale;
 
   page.data.i18n ||= {
-    localePath: i18nFrontmatter?.localePath ?? page.pathLocale,
+    pathLocale: page.pathLocale,
     sourceLink: page.path.replace(page.pathLocale, options.sourcePath),
     untranslated: i18nFrontmatter?.untranslated ?? false,
   };
@@ -23,7 +25,15 @@ const addPageData = async (
   if (isGitRepo(cwd) && page.filePathRelative) {
     page.data.i18n.updatedTime =
       page.data.git?.updatedTime ??
-      (await getUpdatedTime([page.filePathRelative], cwd));
+      (await getUpdatedTime(
+        [
+          page.filePathRelative,
+          ...(page.frontmatter.gitInclude ?? []).map((item) =>
+            path.join(page.filePathRelative, "..", item)
+          ),
+        ],
+        cwd
+      ));
   }
 };
 

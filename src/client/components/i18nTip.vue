@@ -26,7 +26,7 @@ const getContent = (
     case "untranslated":
       return locale.untranslated.content(
         linkRenderer,
-        guideLinks[i18nData?.localePath ?? sourcePath] ?? guideLinks[sourcePath]
+        guideLinks[i18nData?.pathLocale ?? sourcePath] ?? guideLinks[sourcePath]
       );
     case "outdated":
       if (
@@ -51,7 +51,7 @@ const getContent = (
 const pageData = usePageData<PageData>();
 const locale = computed(
   () =>
-    locales[pageData.value.i18n?.localePath ?? sourcePath] ??
+    locales[pageData.value.i18n?.pathLocale ?? sourcePath] ??
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     locales[sourcePath]!
 );

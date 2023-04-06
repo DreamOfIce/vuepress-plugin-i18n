@@ -53,14 +53,15 @@ interface I18nPluginLocaleData {
 interface I18nPluginFrontmatter {
   _i18n?: {
     filePathRelative?: string;
-    localePath?: string;
+    pathLocale?: string;
     untranslated?: boolean;
   };
+  gitInclude?: string[];
   tag?: string[];
 }
 
 interface I18nData {
-  localePath?: string;
+  pathLocale?: string;
   outdated?: boolean;
   sourceLink?: string;
   sourceUpdatedTime?: number;

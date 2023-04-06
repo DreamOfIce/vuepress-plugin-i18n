@@ -31,7 +31,7 @@ const fillUntranslatedPages = async (
         frontmatter: {
           ...page.frontmatter,
           _i18n: {
-            localePath: prefix,
+            pathLocale: prefix,
             untranslated: true,
           },
         } as PageFrontmatter<I18nPluginFrontmatter>,
