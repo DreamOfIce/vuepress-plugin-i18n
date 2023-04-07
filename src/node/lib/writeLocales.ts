@@ -54,7 +54,7 @@ const writeLocales = async (
 ) => {
   const md = app.markdown;
   // eslint-disable-next-line @typescript-eslint/unbound-method
-  const originalNormalizeLink = md.normalizeLink; // avoid escapes
+  const originalNormalizeLink = md.normalizeLink; // avoid encoding
   md.normalizeLink = (url) => url;
   await app.writeTemp(
     "i18n-locales.js",

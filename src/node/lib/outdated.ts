@@ -1,18 +1,15 @@
 import type { App } from "@vuepress/core";
 import type { Page } from "../../shared/types.js";
 import type { I18nPluginInternalOptions } from "../options.js";
-import { isGitRepo, logger } from "../utils.js";
+import { logger } from "../utils.js";
 
 const isOutdated = (
   page: Page,
   app: App,
   options: I18nPluginInternalOptions
 ) => {
-  const cwd = app.dir.source();
-  if (isGitRepo(cwd) && page.pathLocale !== options.sourcePath) {
-    const langPrefix = page.pathLocale;
-    const translationPath = page.path;
-    const sourcePath = translationPath.replace(langPrefix, options.sourcePath);
+  if (page.pathLocale !== options.sourcePath) {
+    const sourcePath = page.data.i18n?.sourceLink;
     const sourcePage = (app.pages as Page[]).find((p) => p.path === sourcePath);
     const sourceUpdateTime = sourcePage?.data.i18n?.updatedTime;
     const translationUpdateTime = page.data.i18n?.updatedTime;

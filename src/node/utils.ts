@@ -1,5 +1,4 @@
 import type { Page, SiteData } from "@vuepress/core";
-import { checkGitRepo } from "@vuepress/plugin-git";
 import { colors } from "@vuepress/utils";
 import { deepmerge } from "deepmerge-ts";
 import type { Formatter } from "picocolors/types";
@@ -32,16 +31,9 @@ const insertAfterFrontmatter = (content: string, data: string) => {
   const regexp = /^---$/gm;
   regexp.exec(content);
   regexp.exec(content);
-  const index = regexp.lastIndex;
+  const index = regexp.lastIndex + 1 ?? 0;
   return content.slice(0, index) + data + content.slice(index);
 };
-
-let gitStatus: boolean;
-/**
- * Return true if `cwd` is a Git repo. Note that it will cache the first result and ignore subsequent cwd's
- * @param cwd dir to test
- */
-const isGitRepo = (cwd: string) => gitStatus ?? !checkGitRepo(cwd);
 
 // To solve https://github.com/microsoft/TypeScript/issues/42873
 const logColor = {
@@ -55,9 +47,11 @@ const logColor = {
   error: colors.red as Formatter,
 };
 
-const logger = (level: keyof typeof logColor, ...message: string[]) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const logger = (level: keyof typeof logColor, ...message: any[]) => {
   console[level](
     `${logColor[level](level)} ${colors.blue(PLUGIN_NAME)} `,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     ...message
   );
 };
@@ -67,6 +61,5 @@ export {
   addTipComponent,
   getLocales,
   insertAfterFrontmatter,
-  isGitRepo,
   logger,
 };

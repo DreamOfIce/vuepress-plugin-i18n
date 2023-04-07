@@ -1,5 +1,5 @@
 import { getDirname, path } from "@vuepress/utils";
-import { App, Plugin, preparePagesData } from "@vuepress/core";
+import type { App, Plugin } from "@vuepress/core";
 import type { Page } from "../shared/types";
 import { type I18nPluginOptions, getOptions } from "./options";
 import { addTipComponent, getLocales, PLUGIN_NAME } from "./utils";
@@ -31,9 +31,9 @@ const i18nPlugin =
       clientConfigFile: path.resolve(__dirname, "..", "client", "config.js"),
       extendsPage: async (page: Page, app: App) => {
         if (options.filter(page) || page.frontmatter["_i18n"]) {
+          if (options.tip.enable) addTipComponent(page);
           await addPageData(page, cwd, options);
           if (isInited) isOutdated(page, app, options);
-          if (options.tip.enable) addTipComponent(page);
         }
       },
       onInitialized: async (app) => {
@@ -46,7 +46,6 @@ const i18nPlugin =
             }
           })
         );
-        await preparePagesData(app);
       },
       onPrepared: async (app) =>
         await writeLocales(app, getLocales(app.siteData, locales), options),
