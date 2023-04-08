@@ -2,7 +2,7 @@ import { getDirname, path } from "@vuepress/utils";
 import type { App, Plugin } from "@vuepress/core";
 import type { Page } from "../shared/types";
 import { type I18nPluginOptions, getOptions } from "./options";
-import { addTipComponent, getLocales, PLUGIN_NAME } from "./utils";
+import { addComponent, getLocales, PLUGIN_NAME } from "./utils";
 import {
   addPageData,
   fillUntranslatedPages,
@@ -31,7 +31,7 @@ const i18nPlugin =
       clientConfigFile: path.resolve(__dirname, "..", "client", "config.js"),
       extendsPage: async (page: Page, app: App) => {
         if (options.filter(page) || page.frontmatter["_i18n"]) {
-          if (options.tip.enable) addTipComponent(page);
+          if (options.tip.enable) addComponent(page, "I18nTip");
           await addPageData(page, cwd, options);
           if (isInited) isOutdated(page, app, options);
         }

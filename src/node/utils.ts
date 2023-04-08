@@ -7,8 +7,18 @@ import type { I18nPluginInternalOptions } from "./options";
 
 const PLUGIN_NAME = "vuepress-plugin-i18n";
 
-const addTipComponent = (page: Page) =>
-  (page.content = insertAfterFrontmatter(page.content, "<I18nTip />\n"));
+const addComponent = (page: Page, name: string) => {
+  const content = page.content;
+  const regexp = /^---$/gm;
+  regexp.exec(content);
+  regexp.exec(content);
+  let index = regexp.lastIndex ?? 0;
+  if (content.at(index) === "\r") index++;
+  if (content.at(index) === "\n") index++;
+  if (!content.slice(index).startsWith(`<${name} />\n`))
+    page.content =
+      content.slice(0, index) + `<${name} />\n` + content.slice(index);
+};
 
 const getLocales = (
   siteData: SiteData,
@@ -31,7 +41,9 @@ const insertAfterFrontmatter = (content: string, data: string) => {
   const regexp = /^---$/gm;
   regexp.exec(content);
   regexp.exec(content);
-  const index = regexp.lastIndex + 1 ?? 0;
+  let index = regexp.lastIndex ?? 0;
+  if (content.at(index) === "\r") index++;
+  if (content.at(index) === "\n") index++;
   return content.slice(0, index) + data + content.slice(index);
 };
 
@@ -48,17 +60,16 @@ const logColor = {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const logger = (level: keyof typeof logColor, ...message: any[]) => {
+const logger = (level: keyof typeof logColor, ...message: any[]) =>
   console[level](
     `${logColor[level](level)} ${colors.blue(PLUGIN_NAME)} `,
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     ...message
   );
-};
 
 export {
   PLUGIN_NAME,
-  addTipComponent,
+  addComponent,
   getLocales,
   insertAfterFrontmatter,
   logger,
