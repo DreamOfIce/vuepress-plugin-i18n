@@ -38,8 +38,8 @@ const getContent = (
       } else {
         return locale.outdated.content(
           linkRenderer,
-          i18nData?.updatedTime,
           i18nData?.sourceUpdatedTime,
+          i18nData?.updatedTime,
           i18nData?.sourceLink
         );
       }
