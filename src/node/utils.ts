@@ -1,4 +1,10 @@
-import type { Page, SiteData } from "@vuepress/core";
+import {
+  type App,
+  type Page,
+  type SiteData,
+  preparePageComponent,
+} from "@vuepress/core";
+import type { MarkdownEnv } from "@vuepress/markdown";
 import { colors } from "@vuepress/utils";
 import { deepmerge } from "deepmerge-ts";
 import type { Formatter } from "picocolors/types";
@@ -7,17 +13,24 @@ import type { I18nPluginInternalOptions } from "./options";
 
 const PLUGIN_NAME = "vuepress-plugin-i18n";
 
-const addComponent = (page: Page, name: string) => {
+const addComponent = async (app: App, page: Page, name: string) => {
   const content = page.content;
-  const regexp = /^---$/gm;
-  regexp.exec(content);
-  regexp.exec(content);
-  let index = regexp.lastIndex ?? 0;
-  if (content.at(index) === "\r") index++;
-  if (content.at(index) === "\n") index++;
-  if (!content.slice(index).startsWith(`<${name} />\n`))
+  const fmRegExp = /^---$/gm;
+  const headRegExp = /^[\r\n]+#\s[^\r\n]+/;
+  fmRegExp.exec(content);
+  fmRegExp.exec(content);
+  let index = fmRegExp.lastIndex ?? 0;
+  headRegExp.exec(content.slice(index));
+  index += headRegExp.lastIndex;
+
+  if (!content.slice(index).startsWith(`<${name} />\n`)) {
+    const markdownEnv: MarkdownEnv = page.markdownEnv;
     page.content =
       content.slice(0, index) + `<${name} />\n` + content.slice(index);
+    page.contentRendered = app.markdown.render(page.content, markdownEnv);
+    page.sfcBlocks = { ...page.sfcBlocks, ...markdownEnv.sfcBlocks };
+    await preparePageComponent(app, page);
+  }
 };
 
 const getLocales = (
