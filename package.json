@@ -1,6 +1,6 @@
 {
   "name": "vuepress-plugin-i18n",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "i18n plugin for Vuepress v2",
   "keywords": [
     "vuepress",
