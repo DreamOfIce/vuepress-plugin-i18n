@@ -2,7 +2,7 @@ import {
   type App,
   createPage,
   type Page,
-  PageFrontmatter,
+  type PageFrontmatter,
 } from "@vuepress/core";
 import { colors } from "@vuepress/utils";
 import type { I18nPluginFrontmatter } from "../../shared/types.js";

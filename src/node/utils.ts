@@ -6,6 +6,7 @@ import {
 } from "@vuepress/core";
 import type { MarkdownEnv } from "@vuepress/markdown";
 import { colors } from "@vuepress/utils";
+import "core-js/stable/structured-clone";
 import { deepmerge } from "deepmerge-ts";
 import type { Formatter } from "picocolors/types";
 import pluginLocaleData from "./locales";
@@ -16,7 +17,7 @@ const PLUGIN_NAME = "vuepress-plugin-i18n";
 const addComponent = async (app: App, page: Page, name: string) => {
   const content = page.content;
   const fmRegExp = /^---$/gm;
-  const headRegExp = /^[\r\n]+#\s[^\r\n]+/;
+  const headRegExp = /^[\r\n]+#\s.+?[\r\n]+/g;
   fmRegExp.exec(content);
   fmRegExp.exec(content);
   let index = fmRegExp.lastIndex ?? 0;
@@ -24,7 +25,7 @@ const addComponent = async (app: App, page: Page, name: string) => {
   index += headRegExp.lastIndex;
 
   if (!content.slice(index).startsWith(`<${name} />\n`)) {
-    const markdownEnv: MarkdownEnv = page.markdownEnv;
+    const markdownEnv: MarkdownEnv = structuredClone(page.markdownEnv);
     page.content =
       content.slice(0, index) + `<${name} />\n` + content.slice(index);
     page.contentRendered = app.markdown.render(page.content, markdownEnv);
