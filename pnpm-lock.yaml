@@ -921,7 +921,7 @@ packages:
       rollup:
         optional: true
     dependencies:
-      '@types/estree': 1.0.0
+      '@types/estree': 1.0.1
       estree-walker: 2.0.2
       picomatch: 2.3.1
     dev: true
@@ -999,8 +999,8 @@ packages:
     dependencies:
       '@types/ms': 0.7.31
 
-  /@types/estree@1.0.0:
-    resolution: {integrity: sha512-WulqXMDUTYAXCjZnk6JtIHPigp55cVtDgDrO2gHRwhyJto21+1zbVCtOYB2L1F9w4qCQ0rOGWBnBe0FNTiEJIQ==}
+  /@types/estree@1.0.1:
+    resolution: {integrity: sha512-LG4opVs2ANWZ1TJoKc937iMmNstM/d0ae1vNbnBvBhqCSezgVUOzcLCqbI5elV8Vy6WKwKjaqR+zO9VKirBBCA==}
     dev: true
 
   /@types/fs-extra@11.0.1:
@@ -1741,7 +1741,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001480
-      electron-to-chromium: 1.4.367
+      electron-to-chromium: 1.4.368
       node-releases: 2.0.10
       update-browserslist-db: 1.0.11(browserslist@4.21.5)
     dev: false
@@ -2031,8 +2031,8 @@ packages:
       is-obj: 2.0.0
     dev: true
 
-  /electron-to-chromium@1.4.367:
-    resolution: {integrity: sha512-mNuDxb+HpLhPGUKrg0hSxbTjHWw8EziwkwlJNkFUj3W60ypigLDRVz04vU+VRsJPi8Gub+FDhYUpuTm9xiEwRQ==}
+  /electron-to-chromium@1.4.368:
+    resolution: {integrity: sha512-e2aeCAixCj9M7nJxdB/wDjO6mbYX+lJJxSJCXDzlr5YPGYVofuJwGN9nKg2o6wWInjX6XmxRinn3AeJMK81ltw==}
     dev: false
 
   /emoji-regex@8.0.0:
