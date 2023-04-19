@@ -1,4 +1,4 @@
-import type { Page } from "@vuepress/core";
+import type { App, Page } from "@vuepress/core";
 import type { I18nPluginLocaleData } from "../shared/types";
 
 type DeepPartial<T> = T extends object
@@ -26,6 +26,12 @@ interface I18nPluginTipOptions {
 }
 
 interface I18nPluginInternalOptions {
+  /**
+   * Calculate updatedTime when not exist
+   * @note may significantly slow down dev server startup
+   * @default app.env.isBuild || app.env.isDebug
+   */
+  calcUpdatedTime: boolean;
   /**
    * Page filter
    * @param page Vuepress page object
@@ -73,12 +79,15 @@ const defaultOptions: I18nPluginInternalOptions = {
     titleClass: ["custom-container-title", "hint-container-title"],
   },
   tag: false,
+  calcUpdatedTime: false,
 };
 
-const getOptions: (options: I18nPluginOptions) => I18nPluginInternalOptions = (
-  options
-) => ({
+const getOptions: (
+  app: App,
+  options: I18nPluginOptions
+) => I18nPluginInternalOptions = (app, options) => ({
   ...defaultOptions,
+  calcUpdatedTime: app.env.isBuild || app.env.isDebug,
   tip:
     typeof options.tip === "boolean"
       ? {

@@ -22,10 +22,16 @@ const addPageData = async (
 
   delete page.frontmatter["_i18n"];
 
-  if (isGitRepo(cwd) && page.filePathRelative) {
-    page.data.i18n.updatedTime =
-      page.data.git?.updatedTime ??
-      (await getUpdatedTime(
+  if (page.data.git?.updatedTime) {
+    page.data.i18n.updatedTime = page.data.git.updatedTime;
+  } else if (
+    options.calcUpdatedTime &&
+    isGitRepo(cwd) &&
+    page.filePathRelative
+  ) {
+    page.data.git ||= {};
+    page.data.i18n.updatedTime = page.data.git.updatedTime =
+      await getUpdatedTime(
         [
           page.filePathRelative,
           ...(page.frontmatter.gitInclude ?? []).map((item) =>
@@ -33,8 +39,9 @@ const addPageData = async (
           ),
         ],
         cwd
-      ));
+      );
   }
+
   if (i18nFrontmatter?.filePathRelative)
     page.filePathRelative = i18nFrontmatter.filePathRelative;
 };

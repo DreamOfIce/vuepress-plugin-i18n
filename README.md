@@ -48,6 +48,12 @@ export default defineUserConfig({
 ```ts
 interface I18nPluginOptions {
   /**
+   * Calculate updatedTime when not exist
+   * @note may significantly slow down dev server startup
+   * @default app.env.isBuild || app.env.isDebug
+   */
+  calcUpdatedTime: boolean;
+  /**
    * Page filter
    * @param page Vuepress page object
    * @returns Whether the page should be included

@@ -50,6 +50,12 @@ export default defineUserConfig({
 ```ts
 interface I18nPluginOptions {
   /**
+   * 当 UpdatedTime 不存在时进行计算
+   * @note 可能大幅降低开发服务器启动速度
+   * @default app.env.isBuild || app.env.isDebug
+   */
+  calcUpdatedTime: boolean;
+  /**
    * 页面过滤器, 默认包含主页外所有由 markdown 文件生成的页面
    * @param page Vuepress的 page 对象
    * @returns 插件是否应该包含此页面

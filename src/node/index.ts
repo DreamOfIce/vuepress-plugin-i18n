@@ -16,7 +16,7 @@ const __dirname = getDirname(import.meta.url);
 const i18nPlugin =
   (_options: I18nPluginOptions = {}): Plugin =>
   (app: App) => {
-    const options = getOptions(_options);
+    const options = getOptions(app, _options);
     const cwd = app.dir.source();
     let isInited = false;
 

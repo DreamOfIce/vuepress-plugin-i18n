@@ -66,7 +66,7 @@ const writeLocales = async (
   );
   md.normalizeLink = originalNormalizeLink;
   logger(
-    "info",
+    "debug",
     `I18n plugin locales has been written to ${colors.green(
       app.dir.temp("i18n-locales.js")
     )}`
