@@ -1,6 +1,6 @@
 # vuepress-plugin-i18n
 
-I18n plugin for [Vuepress v2](https://github.com/vuepress/vuepress-next)
+I18n plugin for [VuePress v2](https://github.com/vuepress/vuepress-next)
 
 [中文版本](./README_zh-CN.md)
 
@@ -55,7 +55,7 @@ interface I18nPluginOptions {
   calcUpdatedTime: boolean;
   /**
    * Page filter
-   * @param page Vuepress page object
+   * @param page VuePress page object
    * @returns Whether the page should be included
    */
   filter?: (page: Page) => boolean;
