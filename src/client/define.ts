@@ -6,7 +6,7 @@ import {
 } from "@temp/i18n-locales";
 import type { I18nPluginLocaleData, LinkRenderer } from "../shared/types";
 
-// Vuepress defines
+// VuePress defines
 declare const I18N_PLUGIN_CONTAINER_CLASS: string[];
 declare const I18N_PLUGIN_SOURCE_PREFIX: string;
 declare const I18N_PLUGIN_TITLE_CLASS: string[];

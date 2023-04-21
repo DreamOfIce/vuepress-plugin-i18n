@@ -24,7 +24,7 @@ interface I18nPluginLocaleData {
      * Content of the container
      * @param linkRenderer link rendering helper
      * @param guideLink links to translation guides (ignore the relevant section when empty)
-     * @returns localised text
+     * @returns localized text
      */
     content: (linkRenderer: LinkRenderer, guideLink?: string) => string;
   };
@@ -39,7 +39,7 @@ interface I18nPluginLocaleData {
      * @param sourceUpdateTime unix timestamp for source page
      * @param translationUpdateTime unix timestamp for translation page
      * @param sourceLink url of the source page
-     * @returns localised text
+     * @returns localized text
      */
     content: (
       linkRenderer: LinkRenderer,
@@ -71,7 +71,7 @@ interface I18nData {
 
 interface I18nPluginPageData {
   i18n?: I18nData;
-  /** mayby added by @vuepress/plugin-git */
+  /** maybe added by @vuepress/plugin-git */
   git?: GitData;
 }
 

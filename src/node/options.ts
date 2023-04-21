@@ -34,7 +34,7 @@ interface I18nPluginInternalOptions {
   calcUpdatedTime: boolean;
   /**
    * Page filter
-   * @param page Vuepress page object
+   * @param page VuePress page object
    * @returns Whether the page should be included
    */
   filter: (page: Page) => boolean;

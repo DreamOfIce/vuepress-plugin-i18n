@@ -1,6 +1,6 @@
 # vuepress-plugin-i18n
 
-适用于 [Vuepress v2](https://github.com/vuepress/vuepress-next) 的 i18n 插件
+适用于 [VuePress v2](https://github.com/vuepress/vuepress-next) 的 i18n 插件
 
 [English version](./README.md)
 
@@ -57,7 +57,7 @@ interface I18nPluginOptions {
   calcUpdatedTime: boolean;
   /**
    * 页面过滤器, 默认包含主页外所有由 markdown 文件生成的页面
-   * @param page Vuepress的 page 对象
+   * @param page VuePress的 page 对象
    * @returns 插件是否应该包含此页面
    */
   filter?: (page: Page) => boolean;
