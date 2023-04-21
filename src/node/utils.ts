@@ -5,11 +5,9 @@ import {
   preparePageComponent,
   renderPageContent,
 } from "@vuepress/core";
-import { colors } from "@vuepress/utils";
-import { deepmerge } from "deepmerge-ts";
-import type { Formatter } from "picocolors/types";
-import pluginLocaleData from "./locales";
-import type { I18nPluginInternalOptions } from "./options";
+import { Logger, deepAssign } from "vuepress-shared/node";
+import pluginLocaleData from "./locales/index.js";
+import type { I18nPluginInternalOptions } from "./options.js";
 
 const PLUGIN_NAME = "vuepress-plugin-i18n";
 
@@ -56,7 +54,8 @@ const getLocales = (
   Object.fromEntries(
     Object.entries(siteData.locales).map(([path, { lang = siteData.lang }]) => [
       path,
-      deepmerge(
+      deepAssign(
+        {},
         customLocales[lang],
         pluginLocaleData[lang] ??
           pluginLocaleData[siteData.lang] ??
@@ -76,25 +75,7 @@ const insertAfterFrontmatter = (content: string, data: string) => {
   return content.slice(0, index) + data + content.slice(index);
 };
 
-// To solve https://github.com/microsoft/TypeScript/issues/42873
-const logColor = {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-  debug: colors.cyan as Formatter,
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-  info: colors.green as Formatter,
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-  warn: colors.yellow as Formatter,
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-  error: colors.red as Formatter,
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const logger = (level: keyof typeof logColor, ...message: any[]) =>
-  console[level](
-    `${logColor[level](level)} ${colors.blue(PLUGIN_NAME)} `,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    ...message
-  );
+const logger = new Logger(PLUGIN_NAME);
 
 export {
   PLUGIN_NAME,

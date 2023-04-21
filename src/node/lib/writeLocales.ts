@@ -1,8 +1,8 @@
 import type { App } from "@vuepress/core";
 import { colors } from "@vuepress/utils";
-import type { I18nPluginLocaleData } from "../../shared/types";
-import type { I18nPluginInternalOptions } from "../options";
-import { logger } from "../utils";
+import type { I18nPluginLocaleData } from "../../shared/types.js";
+import type { I18nPluginInternalOptions } from "../options.js";
+import { logger } from "../utils.js";
 
 const keyRegExp = /^(?!\d)[a-z0-9_]+/i;
 /**
@@ -65,8 +65,7 @@ const writeLocales = async (
     export const locales = ${getCodeStr(locales)};`
   );
   md.normalizeLink = originalNormalizeLink;
-  logger(
-    "debug",
+  logger.info(
     `I18n plugin locales has been written to ${colors.green(
       app.dir.temp("i18n-locales.js")
     )}`

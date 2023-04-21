@@ -4,5 +4,8 @@
     "@tsconfig/strictest/tsconfig.json",
     "@tsconfig/esm/tsconfig.json"
   ],
+  "compilerOptions": {
+    "moduleResolution": "NodeNext"
+  },
   "include": ["src/**/*", "vite.config.ts"]
 }

@@ -18,7 +18,7 @@ export const markOutDatedPage = (
     page.data.i18n.sourceUpdatedTime = sourceUpdateTime;
     if (sourceUpdateTime > translationUpdateTime) {
       if (app.env.isDebug)
-        logger("debug", `Out-of-date page detected: ${page.path}`);
+        logger.info(`Out-of-date page detected: ${page.path}`);
       page.data.i18n.outdated = true;
       if (options.tag) {
         page.frontmatter.tag ||= [];

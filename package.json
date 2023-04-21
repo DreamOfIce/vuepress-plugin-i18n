@@ -44,9 +44,9 @@
     "@vuepress/client": "2.0.0-beta.61",
     "@vuepress/core": "2.0.0-beta.61",
     "@vuepress/utils": "2.0.0-beta.61",
-    "deepmerge-ts": "^5.1.0",
     "vue": "^3.2.47",
-    "vuepress": "2.0.0-beta.61"
+    "vuepress": "2.0.0-beta.61",
+    "vuepress-shared": "2.0.0-beta.205"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.1",
@@ -65,7 +65,6 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-vue": "^9.11.0",
     "husky": "^8.0.3",
-    "picocolors": "^1.0.0",
     "prettier": "^2.8.7",
     "typescript": "^5.0.4",
     "vite": "^4.2.2",

@@ -1,15 +1,16 @@
 import { getDirname, path } from "@vuepress/utils";
 import type { App, Plugin } from "@vuepress/core";
-import type { Page } from "../shared/types";
-import { type I18nPluginOptions, getOptions } from "./options";
-import { addComponent, getLocales, PLUGIN_NAME } from "./utils";
+
+import type { Page } from "../shared/types.js";
+import { type I18nPluginOptions, getOptions } from "./options.js";
+import { addComponent, getLocales, PLUGIN_NAME } from "./utils.js";
 import {
   addPageData,
   fillUntranslatedPages,
   markOutDatedPage,
   writeLocales,
-} from "./lib";
-import locales from "./locales";
+} from "./lib/index.js";
+import locales from "./locales/index.js";
 
 const __dirname = getDirname(import.meta.url);
 
