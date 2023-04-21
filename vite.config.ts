@@ -18,7 +18,7 @@ export default defineConfig({
       formats: ["es"],
     },
     rollupOptions: {
-      external: ["deepmerge-ts", "vue", /@vuepress\/.+/, /@temp\/.+/],
+      external: ["vue", "vuepress-shared", /@vuepress\/.+/, /@temp\/.+/],
     },
   },
   plugins: [

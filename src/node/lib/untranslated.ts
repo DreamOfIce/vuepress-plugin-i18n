@@ -48,8 +48,7 @@ const fillUntranslatedPages = async (
       }
       renderList.push(createPage(app, pageOptions));
       if (app.env.isDebug)
-        logger(
-          "debug",
+        logger.info(
           `Fill page ${colors.green(
             pageOptions.path
           )} with source ${colors.green(page.path)}`
