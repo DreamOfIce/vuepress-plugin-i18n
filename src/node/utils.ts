@@ -81,6 +81,6 @@ export {
   PLUGIN_NAME,
   addComponent,
   getLocales,
-  logger,
   insertAfterFrontmatter,
+  logger,
 };
