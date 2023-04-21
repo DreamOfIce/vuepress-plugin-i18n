@@ -3,10 +3,11 @@ import { path } from "@vuepress/utils";
 import type { I18nPluginFrontmatter, Page } from "../../shared/types";
 import type { I18nPluginInternalOptions } from "../options";
 
-let gitStatus: boolean;
-const isGitRepo = (cwd: string) => gitStatus ?? checkGitRepo(cwd);
+let inGitRepo: boolean;
 
-const addPageData = async (
+const isGitRepo = (cwd: string) => (inGitRepo ??= checkGitRepo(cwd));
+
+export const addPageData = async (
   page: Page,
   cwd: string,
   options: I18nPluginInternalOptions
@@ -45,5 +46,3 @@ const addPageData = async (
   if (i18nFrontmatter?.filePathRelative)
     page.filePathRelative = i18nFrontmatter.filePathRelative;
 };
-
-export { addPageData };

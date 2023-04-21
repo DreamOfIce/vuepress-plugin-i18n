@@ -3,7 +3,7 @@ import type { Page } from "../../shared/types.js";
 import type { I18nPluginInternalOptions } from "../options.js";
 import { logger } from "../utils.js";
 
-const isOutdated = (
+export const markOutDatedPage = (
   page: Page,
   app: App,
   options: I18nPluginInternalOptions
@@ -27,5 +27,3 @@ const isOutdated = (
     }
   }
 };
-
-export { isOutdated };

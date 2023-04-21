@@ -6,7 +6,7 @@ import { addComponent, getLocales, PLUGIN_NAME } from "./utils";
 import {
   addPageData,
   fillUntranslatedPages,
-  isOutdated,
+  markOutDatedPage,
   writeLocales,
 } from "./lib";
 import locales from "./locales";
@@ -22,18 +22,17 @@ const i18nPlugin =
 
     return {
       name: PLUGIN_NAME,
-      multiple: false,
       define: {
         I18N_PLUGIN_CONTAINER_CLASS: options.tip.containerClass,
         I18N_PLUGIN_SOURCE_PREFIX: options.sourcePath,
         I18N_PLUGIN_TITLE_CLASS: options.tip.titleClass,
       },
-      clientConfigFile: path.resolve(__dirname, "..", "client", "config.js"),
+      clientConfigFile: path.resolve(__dirname, "../client/config.js"),
       extendsPage: async (page: Page, app: App) => {
         if (options.filter(page) || page.frontmatter["_i18n"]) {
           if (options.tip.enable) await addComponent(app, page, "I18nTip");
           await addPageData(page, cwd, options);
-          if (isInited) isOutdated(page, app, options);
+          if (isInited) markOutDatedPage(page, app, options);
         }
       },
       onInitialized: async (app) => {
@@ -41,7 +40,7 @@ const i18nPlugin =
         await Promise.all(
           app.pages.map(async (page) => {
             if (options.filter(page)) {
-              isOutdated(page, app, options);
+              markOutDatedPage(page, app, options);
               await fillUntranslatedPages(page, app, options);
             }
           })
