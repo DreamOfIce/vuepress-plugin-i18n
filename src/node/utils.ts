@@ -2,7 +2,6 @@ import {
   type App,
   type Page,
   type SiteData,
-  preparePageComponent,
   renderPageContent,
 } from "@vuepress/core";
 import { Logger, deepAssign } from "vuepress-shared/node";
@@ -11,7 +10,7 @@ import type { I18nPluginLocaleData } from "../shared/types.js";
 
 const PLUGIN_NAME = "vuepress-plugin-i18n";
 
-const addComponent = async (app: App, page: Page, name: string) => {
+const addComponent = (app: App, page: Page, name: string) => {
   const { content, filePath, filePathRelative, frontmatter, path } = page;
   const fmRegExp = /^---$/gm;
   const headRegExp = /^[\r\n]+#\s.+?[\r\n]+/g;
@@ -43,7 +42,6 @@ const addComponent = async (app: App, page: Page, name: string) => {
         },
       })
     );
-    await preparePageComponent(app, page);
   }
 };
 
