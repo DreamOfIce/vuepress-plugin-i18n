@@ -65,11 +65,12 @@ const writeLocales = async (
     export const locales = ${getCodeStr(locales)};`
   );
   md.normalizeLink = originalNormalizeLink;
-  logger.info(
-    `I18n plugin locales has been written to ${colors.green(
-      app.dir.temp("i18n-locales.js")
-    )}`
-  );
+  if (app.env.isDebug)
+    logger.info(
+      `I18n plugin locales has been written to ${colors.green(
+        app.dir.temp("i18n-locales.js")
+      )}`
+    );
 };
 
 export { writeLocales };
