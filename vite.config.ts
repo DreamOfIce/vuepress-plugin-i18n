@@ -18,7 +18,7 @@ export default defineConfig({
       formats: ["es"],
     },
     rollupOptions: {
-      external: ["vue", "vuepress-shared", /@vuepress\/.+/, /@temp\/.+/],
+      external: ["vue", /vuepress-share(\/.+)?/, /@vuepress\/.+/, /@temp\/.+/],
     },
   },
   plugins: [
