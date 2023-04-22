@@ -7,7 +7,7 @@ import {
 } from "@vuepress/core";
 import { Logger, deepAssign } from "vuepress-shared/node";
 import pluginLocaleData from "./locales/index.js";
-import type { I18nPluginInternalOptions } from "./options.js";
+import type { I18nPluginLocaleData } from "../shared/types.js";
 
 const PLUGIN_NAME = "vuepress-plugin-i18n";
 
@@ -49,21 +49,21 @@ const addComponent = async (app: App, page: Page, name: string) => {
 
 const getLocales = (
   siteData: SiteData,
-  customLocales: I18nPluginInternalOptions["locales"]
+  customLocales: Record<string, Partial<I18nPluginLocaleData>>
 ) =>
   Object.fromEntries(
     Object.entries(siteData.locales).map(([path, { lang = siteData.lang }]) => [
       path,
       deepAssign(
         {},
-        customLocales[lang],
         pluginLocaleData[lang] ??
           pluginLocaleData[siteData.lang] ??
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          pluginLocaleData["en-US"]!
+          pluginLocaleData["en-US"]!,
+        customLocales[lang]
       ),
     ])
-  );
+  ) as Record<string, I18nPluginLocaleData>;
 
 const insertAfterFrontmatter = (content: string, data: string) => {
   const regexp = /^---$/gm;
