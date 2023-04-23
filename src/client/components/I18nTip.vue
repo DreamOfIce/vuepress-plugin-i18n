@@ -3,7 +3,6 @@ import { usePageData } from "@vuepress/client";
 import {
   containerClass,
   guideLinks,
-  linkRenderer,
   locales,
   baseLocalePath,
   titleClass,
@@ -11,11 +10,16 @@ import {
 import type {
   I18nData,
   I18nPluginLocaleData,
+  LinkRenderer,
   PageData,
 } from "../../shared/types";
 import { computed } from "vue";
+import { isAbsoluteUrl } from "vuepress-shared";
 
 type I18nPluginTipType = "untranslated" | "outdated";
+
+const linkRenderer: LinkRenderer = (text, url) =>
+  `<a href="${url}"${isAbsoluteUrl(url) ? ` target="_blank"` : ""}>${text}</a>`;
 
 const getContent = (
   type: I18nPluginTipType,
