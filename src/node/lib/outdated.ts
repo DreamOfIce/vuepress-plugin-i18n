@@ -8,9 +8,11 @@ export const markOutDatedPage = (
   app: App,
   options: I18nPluginInternalOptions
 ) => {
-  if (page.pathLocale !== options.sourcePath) {
-    const sourcePath = page.data.i18n?.sourceLink;
-    const sourcePage = (app.pages as Page[]).find((p) => p.path === sourcePath);
+  if (page.pathLocale !== options.baseLocalePath) {
+    const baseLocalePath = page.data.i18n?.sourceLink;
+    const sourcePage = (app.pages as Page[]).find(
+      (p) => p.path === baseLocalePath
+    );
     const sourceUpdateTime = sourcePage?.data.i18n?.updatedTime;
     const translationUpdateTime = page.data.i18n?.updatedTime;
     if (!sourcePage || !sourceUpdateTime || !translationUpdateTime) return;

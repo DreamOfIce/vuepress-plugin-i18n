@@ -25,7 +25,7 @@ const i18nPlugin =
       name: PLUGIN_NAME,
       define: {
         I18N_PLUGIN_CONTAINER_CLASS: options.tip.containerClass,
-        I18N_PLUGIN_SOURCE_PREFIX: options.sourcePath,
+        I18N_PLUGIN_BASE_LOCALE_PATH: options.baseLocalePath,
         I18N_PLUGIN_TITLE_CLASS: options.tip.titleClass,
       },
       clientConfigFile: path.resolve(__dirname, "../client/config.js"),

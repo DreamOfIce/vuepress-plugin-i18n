@@ -50,7 +50,7 @@ interface I18nPluginInternalOptions {
    * Prefixes for source language
    * @default "/"
    */
-  sourcePath: string;
+  baseLocalePath: string;
   /**
    * Tip container options
    * @see I18nPluginTipOptions
@@ -72,7 +72,7 @@ interface I18nPluginOptions
 const defaultOptions: I18nPluginInternalOptions = {
   filter: (page) => page.frontmatter["homepage"] !== true && !!page.filePath,
   locales: {},
-  sourcePath: "/",
+  baseLocalePath: "/",
   tip: {
     enable: true,
     containerClass: ["custom-container", "hint-container"],

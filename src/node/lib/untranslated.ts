@@ -14,19 +14,19 @@ const fillUntranslatedPages = async (
   app: App,
   options: I18nPluginInternalOptions
 ) => {
-  if (page.pathLocale === options.sourcePath) {
+  if (page.pathLocale === options.baseLocalePath) {
     const siteLocales = app.siteData.locales;
     const translationPrefixs = Object.keys(siteLocales).filter(
-      (path) => path !== options.sourcePath
+      (path) => path !== options.baseLocalePath
     );
     const renderList: Promise<Page>[] = [];
 
     const pagePaths = app.pages.map((p) => p.path);
     for (const prefix of translationPrefixs) {
-      if (pagePaths.includes(page.path.replace(options.sourcePath, prefix)))
+      if (pagePaths.includes(page.path.replace(options.baseLocalePath, prefix)))
         continue;
       const pageOptions = {
-        path: page.path.replace(options.sourcePath, prefix),
+        path: page.path.replace(options.baseLocalePath, prefix),
         content: page.content,
         frontmatter: {
           ...page.frontmatter,

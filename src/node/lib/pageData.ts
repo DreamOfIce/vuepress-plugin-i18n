@@ -17,7 +17,7 @@ export const addPageData = async (
 
   page.data.i18n ||= {
     pathLocale: page.pathLocale,
-    sourceLink: page.path.replace(page.pathLocale, options.sourcePath),
+    sourceLink: page.path.replace(page.pathLocale, options.baseLocalePath),
     untranslated: i18nFrontmatter?.untranslated ?? false,
   };
 

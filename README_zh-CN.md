@@ -73,7 +73,7 @@ interface I18nPluginOptions {
    * 源语言版本所在的路径
    * @default "/"
    */
-  sourcePath?: string;
+  baseLocalePath?: string;
   /**
    * 提示功能配置, false 表示禁用
    * @see I18nPluginTipOptions

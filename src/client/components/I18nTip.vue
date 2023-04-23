@@ -5,7 +5,7 @@ import {
   guideLinks,
   linkRenderer,
   locales,
-  sourcePath,
+  baseLocalePath,
   titleClass,
 } from "../define";
 import type {
@@ -26,7 +26,8 @@ const getContent = (
     case "untranslated":
       return locale.untranslated.content(
         linkRenderer,
-        guideLinks[i18nData?.pathLocale ?? sourcePath] ?? guideLinks[sourcePath]
+        guideLinks[i18nData?.pathLocale ?? baseLocalePath] ??
+          guideLinks[baseLocalePath]
       );
     case "outdated":
       if (
@@ -51,9 +52,9 @@ const getContent = (
 const pageData = usePageData<PageData>();
 const locale = computed(
   () =>
-    locales[pageData.value.i18n?.pathLocale ?? sourcePath] ??
+    locales[pageData.value.i18n?.pathLocale ?? baseLocalePath] ??
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    locales[sourcePath]!
+    locales[baseLocalePath]!
 );
 const showTips = computed(
   () => pageData.value.i18n?.untranslated || pageData.value.i18n?.outdated

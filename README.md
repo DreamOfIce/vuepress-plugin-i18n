@@ -71,7 +71,7 @@ interface I18nPluginOptions {
    * Path prefix for source language version
    * @default "/"
    */
-  sourcePath?: string;
+  baseLocalePath?: string;
   /**
    * Tip container options
    * @see I18nPluginTipOptions
