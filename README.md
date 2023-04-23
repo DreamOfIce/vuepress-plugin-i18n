@@ -62,7 +62,7 @@ interface I18nPluginOptions {
   /**
    * Link to translation guide(in default locale)
    */
-  guideLink?: string;
+  translationGuide?: string;
   /**
    * Custom locales for i18n plugin
    */
@@ -122,10 +122,10 @@ interface I18nPluginLocaleData {
     /**
      * Content of the container
      * @param linkRenderer link rendering helper
-     * @param guideLink links to translation guides (ignore the relevant section when empty)
+     * @param translationGuide links to translation guides (ignore the relevant section when empty)
      * @returns localised text
      */
-    content: (linkRenderer: LinkRenderer, guideLink?: string) => string;
+    content: (linkRenderer: LinkRenderer, translationGuide?: string) => string;
   };
   outdated: {
     /**

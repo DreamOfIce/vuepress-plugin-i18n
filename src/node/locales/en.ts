@@ -4,10 +4,10 @@ const enLocaleData: I18nPluginLocaleData = {
   lang: "en-US",
   untranslated: {
     title: "Notice",
-    content: (linkRenderer, guideLink) =>
+    content: (linkRenderer, translationGuide) =>
       `This page has not yet been translated${
-        guideLink
-          ? `, see how you can help ${linkRenderer("here", guideLink)}`
+        translationGuide
+          ? `, see how you can help ${linkRenderer("here", translationGuide)}`
           : ""
       }.`,
   },

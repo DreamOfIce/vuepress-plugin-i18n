@@ -37,11 +37,12 @@ const getCodeStr: (input: unknown) => string = (input) => {
   }
 };
 
-const getGuideLinks = (app: App, guideLink?: string) => {
-  if (!guideLink || !guideLink.startsWith("/")) return { "/": guideLink };
-  const links: Record<string, string> = { "/": guideLink };
+const gettranslationGuides = (app: App, translationGuide?: string) => {
+  if (!translationGuide || !translationGuide.startsWith("/"))
+    return { "/": translationGuide };
+  const links: Record<string, string> = { "/": translationGuide };
   app.pages.forEach((page) => {
-    if (page.path === guideLink.replace("/", page.pathLocale))
+    if (page.path === translationGuide.replace("/", page.pathLocale))
       links[page.pathLocale] = page.path;
   });
   return links;
@@ -50,11 +51,13 @@ const getGuideLinks = (app: App, guideLink?: string) => {
 const writeLocales = async (
   app: App,
   locales: Record<string, I18nPluginLocaleData>,
-  { guideLink }: I18nPluginInternalOptions
+  { translationGuide }: I18nPluginInternalOptions
 ) => {
   await app.writeTemp(
     "i18n-locales.js",
-    `export const guideLinks = ${getCodeStr(getGuideLinks(app, guideLink))};
+    `export const translationGuides = ${getCodeStr(
+      gettranslationGuides(app, translationGuide)
+    )};
     export const locales = ${getCodeStr(locales)};`
   );
   if (app.env.isDebug)

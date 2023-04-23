@@ -1,5 +1,5 @@
 import {
-  guideLinks as _guideLinks,
+  translationGuides as _translationGuides,
   locales as _locales,
   //@ts-expect-error 2307
 } from "@temp/i18n-locales";
@@ -16,7 +16,16 @@ const titleClass = I18N_PLUGIN_TITLE_CLASS;
 // declare in file ${temp}/i18n-locales.js
 type Locales = Record<string, I18nPluginLocaleData>;
 
-const guideLinks = _guideLinks as Record<string, string | undefined>;
+const translationGuides = _translationGuides as Record<
+  string,
+  string | undefined
+>;
 const locales = _locales as Locales;
 
-export { containerClass, guideLinks, locales, baseLocalePath, titleClass };
+export {
+  containerClass,
+  translationGuides,
+  locales,
+  baseLocalePath,
+  titleClass,
+};

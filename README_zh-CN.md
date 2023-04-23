@@ -64,7 +64,7 @@ interface I18nPluginOptions {
   /**
    * 翻译指南的链接, 为空时不显示
    */
-  guideLink?: string;
+  translationGuide?: string;
   /**
    * 自定义本地化配置, 应为一个以路径前缀为键，本地化数据为值的对象
    */
@@ -119,10 +119,10 @@ interface I18nPluginLocaleData {
     /**
      * 未翻译页面提示信息
      * @param linkRenderer 链接渲染工具函数
-     * @param guideLink 翻译指南的链接 (可能为空)
+     * @param translationGuide 翻译指南的链接 (可能为空)
      * @returns 本地化文本
      */
-    content: (linkRenderer: LinkRenderer, guideLink?: string) => string;
+    content: (linkRenderer: LinkRenderer, translationGuide?: string) => string;
   };
   outdated: {
     /**

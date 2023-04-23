@@ -41,7 +41,7 @@ interface I18nPluginInternalOptions {
   /**
    * Link to translation guide(in default locale)
    */
-  guideLink?: string;
+  translationGuide?: string;
   /**
    * Custom locales for i18n plugin
    */

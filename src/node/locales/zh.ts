@@ -4,10 +4,10 @@ const zhLocaleData: I18nPluginLocaleData = {
   lang: "zh-CN",
   untranslated: {
     title: "提示",
-    content: (linkRenderer, guideLink) =>
+    content: (linkRenderer, translationGuide) =>
       `此页面尚未翻译${
-        guideLink
-          ? `，在${linkRenderer("此处", guideLink)}了解如何帮我们翻译`
+        translationGuide
+          ? `，在${linkRenderer("此处", translationGuide)}了解如何帮我们翻译`
           : ""
       }。`,
   },

@@ -23,10 +23,10 @@ interface I18nPluginLocaleData {
     /**
      * Content of the container
      * @param linkRenderer link rendering helper
-     * @param guideLink links to translation guides (ignore the relevant section when empty)
+     * @param translationGuide links to translation guides (ignore the relevant section when empty)
      * @returns localized text
      */
-    content: (linkRenderer: LinkRenderer, guideLink?: string) => string;
+    content: (linkRenderer: LinkRenderer, translationGuide?: string) => string;
   };
   outdated: {
     /**
