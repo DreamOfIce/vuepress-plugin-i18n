@@ -14,7 +14,7 @@ import type {
   PageData,
 } from "../../shared/types";
 import { computed } from "vue";
-import { isAbsoluteUrl } from "vuepress-shared";
+import { isAbsoluteUrl } from "vuepress-shared/client";
 
 type I18nPluginTipType = "untranslated" | "outdated";
 

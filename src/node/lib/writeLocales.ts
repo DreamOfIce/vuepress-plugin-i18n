@@ -3,6 +3,7 @@ import { colors } from "@vuepress/utils";
 import type { I18nPluginLocaleData } from "../../shared/types.js";
 import type { I18nPluginInternalOptions } from "../options.js";
 import { logger } from "../utils.js";
+import { isAbsoluteUrl } from "vuepress-shared";
 
 const keyRegExp = /^(?!\d)[a-z0-9_]+/i;
 /**
@@ -38,7 +39,7 @@ const getCodeStr: (input: unknown) => string = (input) => {
 };
 
 const gettranslationGuides = (app: App, translationGuide?: string) => {
-  if (!translationGuide || !translationGuide.startsWith("/"))
+  if (!translationGuide || isAbsoluteUrl(translationGuide))
     return { "/": translationGuide };
   const links: Record<string, string> = { "/": translationGuide };
   app.pages.forEach((page) => {
