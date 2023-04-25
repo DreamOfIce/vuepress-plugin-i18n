@@ -1,13 +1,12 @@
 import { getDirname, path } from "@vuepress/utils";
 import type { App, Plugin } from "@vuepress/core";
-
 import type { Page } from "../shared/types.js";
 import { type I18nPluginOptions, getOptions } from "./options.js";
 import { addComponent, getLocales, PLUGIN_NAME } from "./utils.js";
 import {
   addPageData,
   fillUntranslatedPages,
-  markOutDatedPage,
+  markOutdatedPage,
   writeLocales,
 } from "./lib/index.js";
 import locales from "./locales/index.js";
@@ -33,7 +32,7 @@ const i18nPlugin =
         if (options.filter(page) || page.frontmatter["_i18n"]) {
           if (options.tip.enable) addComponent(app, page, "I18nTip");
           await addPageData(page, cwd, options);
-          if (isInited) markOutDatedPage(page, app, options);
+          if (isInited) markOutdatedPage(page, app, options);
         }
       },
       onInitialized: async (app) => {
@@ -41,7 +40,7 @@ const i18nPlugin =
         await Promise.all(
           app.pages.map(async (page) => {
             if (options.filter(page)) {
-              markOutDatedPage(page, app, options);
+              markOutdatedPage(page, app, options);
               await fillUntranslatedPages(page, app, options);
             }
           })

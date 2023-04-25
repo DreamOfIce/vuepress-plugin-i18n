@@ -3,7 +3,7 @@ import type { Page } from "../../shared/types.js";
 import type { I18nPluginInternalOptions } from "../options.js";
 import { logger } from "../utils.js";
 
-export const markOutDatedPage = (
+export const markOutdatedPage = (
   page: Page,
   app: App,
   options: I18nPluginInternalOptions
