@@ -77,5 +77,8 @@
     "overrides": {
       "ts-node": "npm:@dreamofice/ts-node@^10.9.2"
     }
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
   }
 }
