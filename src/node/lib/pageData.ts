@@ -1,15 +1,11 @@
-import { checkGitRepo, getUpdatedTime } from "@vuepress/plugin-git";
-import { path } from "@vuepress/utils";
+import type { App } from "vuepress";
+import { getUpdateTime } from "./getUpdateTime.js";
 import type { I18nPluginFrontmatter, Page } from "../../shared/types.js";
 import type { I18nPluginInternalOptions } from "../options.js";
 
-let inGitRepo: boolean;
-
-const isGitRepo = (cwd: string) => (inGitRepo ??= checkGitRepo(cwd));
-
 export const addPageData = async (
   page: Page,
-  cwd: string,
+  app: App,
   options: I18nPluginInternalOptions
 ) => {
   const i18nFrontmatter = (page.frontmatter as I18nPluginFrontmatter)["_i18n"];
@@ -23,25 +19,7 @@ export const addPageData = async (
 
   delete page.frontmatter["_i18n"];
 
-  if (page.data.git?.updatedTime) {
-    page.data.i18n.updatedTime = page.data.git.updatedTime;
-  } else if (
-    options.calcUpdatedTime &&
-    isGitRepo(cwd) &&
-    page.filePathRelative
-  ) {
-    page.data.git ||= {};
-    page.data.i18n.updatedTime = page.data.git.updatedTime =
-      await getUpdatedTime(
-        [
-          page.filePathRelative,
-          ...(page.frontmatter.gitInclude ?? []).map((item) =>
-            path.join(page.filePathRelative, "..", item)
-          ),
-        ],
-        cwd
-      );
-  }
+  page.data.i18n.updatedTime = await getUpdateTime(page, app, options);
 
   if (i18nFrontmatter?.filePathRelative)
     page.filePathRelative = i18nFrontmatter.filePathRelative;

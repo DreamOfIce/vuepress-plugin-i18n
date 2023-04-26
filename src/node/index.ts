@@ -17,7 +17,6 @@ const i18nPlugin =
   (_options: I18nPluginOptions = {}): Plugin =>
   (app: App) => {
     const options = getOptions(app, _options);
-    const cwd = app.dir.source();
     let isInited = false;
 
     return {
@@ -31,7 +30,7 @@ const i18nPlugin =
       extendsPage: async (page: Page, app: App) => {
         if (options.filter(page) || page.frontmatter["_i18n"]) {
           if (options.tip.enable) addComponent(app, page, "I18nTip");
-          await addPageData(page, cwd, options);
+          await addPageData(page, app, options);
           if (isInited) markOutdatedPage(page, app, options);
         }
       },

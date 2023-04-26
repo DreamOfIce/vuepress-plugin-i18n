@@ -27,11 +27,10 @@ interface I18nPluginTipOptions {
 
 interface I18nPluginInternalOptions {
   /**
-   * Calculate updatedTime when not exist
-   * @note may significantly slow down dev server startup
-   * @default app.env.isBuild || app.env.isDebug
+   * Prefixes for source language
+   * @default "/"
    */
-  calcUpdatedTime: boolean;
+  baseLocalePath: string;
   /**
    * Page filter
    * @param page VuePress page object
@@ -47,21 +46,30 @@ interface I18nPluginInternalOptions {
    */
   locales: Record<string, Partial<I18nPluginLocaleData>>;
   /**
-   * Prefixes for source language
-   * @default "/"
+   * Add tag `untranslated` or `outdated` to page
+   * need to load before [vuepress-plugin-blog2]{@link https://www.npmjs.com/package/vuepress-plugin-blog2}
+   * @default false
    */
-  baseLocalePath: string;
+  tag: boolean;
   /**
    * Tip container options
    * @see I18nPluginTipOptions
    */
   tip: I18nPluginTipOptions;
   /**
-   * Add tag `untranslated` or `outdated` to page
-   * need to load before [vuepress-plugin-blog2]{@link https://www.npmjs.com/package/vuepress-plugin-blog2}
-   * @default false
+   * Calculate updatedTime when not exist
+   * - `git`: read updated time from git
+   * - `file`: read updated time from file info
+   * - a function:
+   *   @param page VuePress page object
+   *   @param app VuePress app
+   * @note may significantly slow down dev server startup
+   * @default (_page, app) => app.env.isBuild || app.env.isDebug ? "git" : undefined
    */
-  tag: boolean;
+  updatedTime:
+    | "git"
+    | "file"
+    | ((page: Page, app: App) => number | undefined | "git" | "file");
 }
 
 interface I18nPluginOptions
@@ -79,7 +87,8 @@ const defaultOptions: I18nPluginInternalOptions = {
     titleClass: ["custom-container-title", "hint-container-title"],
   },
   tag: false,
-  calcUpdatedTime: false,
+  updatedTime: (_page, app) =>
+    app.env.isBuild || app.env.isDebug ? "git" : undefined,
 };
 
 const getOptions: (

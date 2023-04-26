@@ -66,7 +66,7 @@ interface I18nData {
   sourceLink?: string;
   sourceUpdatedTime?: number;
   untranslated?: boolean;
-  updatedTime?: number;
+  updatedTime?: number | undefined;
 }
 
 interface I18nPluginPageData {
