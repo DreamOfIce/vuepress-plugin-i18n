@@ -28,6 +28,7 @@ export default defineConfig({
     },
   },
   plugins: [
+    //@ts-expect-error 2433 unknown reason
     vue(),
     dts({
       rollupTypes: true,
