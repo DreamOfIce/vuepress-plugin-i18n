@@ -13,6 +13,9 @@ dependencies:
   '@vuepress/utils':
     specifier: 2.0.0-beta.61
     version: 2.0.0-beta.61
+  chokidar:
+    specifier: ^3.5.3
+    version: 3.5.3
   vue:
     specifier: ^3.2.47
     version: 3.2.47

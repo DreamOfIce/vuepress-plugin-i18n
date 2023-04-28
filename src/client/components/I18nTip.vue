@@ -57,7 +57,6 @@ const pageData = usePageData<PageData>();
 const locale = computed(
   () =>
     locales[pageData.value.i18n?.pathLocale ?? baseLocalePath] ??
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     locales[baseLocalePath]!
 );
 const showTips = computed(

@@ -18,7 +18,13 @@ export default defineConfig({
       formats: ["es"],
     },
     rollupOptions: {
-      external: ["vue", /vuepress-share(\/.+)?/, /@vuepress\/.+/, /@temp\/.+/],
+      external: [
+        "chokidar",
+        "vue",
+        /vuepress-share(\/.+)?/,
+        /@vuepress\/.+/,
+        /@temp\/.+/,
+      ],
     },
   },
   plugins: [

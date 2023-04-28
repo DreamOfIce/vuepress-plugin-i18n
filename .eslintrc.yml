@@ -12,3 +12,5 @@ parserOptions:
     - .vue
 plugins:
   - "@typescript-eslint"
+rules:
+  "@typescript-eslint/no-non-null-assertion": off

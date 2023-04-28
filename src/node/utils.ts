@@ -56,12 +56,14 @@ const getLocales = (
         {},
         pluginLocaleData[lang] ??
           pluginLocaleData[siteData.lang] ??
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           pluginLocaleData["en-US"]!,
         customLocales[lang]
       ),
     ])
   ) as Record<string, I18nPluginLocaleData>;
+
+const getPageFromDataFilePath = (app: App, path: string) =>
+  app.pages.find((page) => page.dataFilePath === path);
 
 const insertAfterFrontmatter = (content: string, data: string) => {
   const regexp = /^---$/gm;
@@ -79,6 +81,7 @@ export {
   PLUGIN_NAME,
   addComponent,
   getLocales,
+  getPageFromDataFilePath,
   insertAfterFrontmatter,
   logger,
 };

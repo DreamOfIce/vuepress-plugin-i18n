@@ -1,8 +1,14 @@
 import { getDirname, path } from "@vuepress/utils";
 import type { App, Plugin } from "@vuepress/core";
+import { watch } from "chokidar";
 import type { Page } from "../shared/types.js";
 import { type I18nPluginOptions, getOptions } from "./options.js";
-import { addComponent, getLocales, PLUGIN_NAME } from "./utils.js";
+import {
+  addComponent,
+  getLocales,
+  getPageFromDataFilePath,
+  PLUGIN_NAME,
+} from "./utils.js";
 import {
   addPageData,
   fillUntranslatedPages,
@@ -47,5 +53,36 @@ export const i18nPlugin =
       },
       onPrepared: async (app) =>
         await writeLocales(app, getLocales(app.siteData, locales), options),
+      onWatched: (app, watcher) => {
+        const pageWatcher = watch("pages/**/*.js", {
+          cwd: app.dir.temp(),
+          ignoreInitial: true,
+        });
+        pageWatcher.on("change", (filePath) => {
+          const page: Page | undefined = getPageFromDataFilePath(app, filePath);
+          if (page && page.data.i18n?.updatedTime) {
+            app.pages.forEach((p: Page) => {
+              if (p.data.i18n?.sourceLink === page.path && p.data.i18n)
+                p.data.i18n.sourceUpdatedTime = page.data.i18n!.updatedTime!;
+            });
+          }
+        });
+        //  Remove filled page if source has been removed
+        pageWatcher.on("unlink", (filePath) => {
+          const { path, pathLocale } =
+            getPageFromDataFilePath(app, filePath) ?? {};
+          if (pathLocale === options.baseLocalePath && path) {
+            app.pages = app.pages.filter(
+              (page: Page) =>
+                !(
+                  page.path ===
+                    path.replace(options.baseLocalePath, page.pathLocale) &&
+                  page.data.i18n?.untranslated
+                )
+            );
+          }
+        });
+        watcher.push(pageWatcher);
+      },
     };
   };
