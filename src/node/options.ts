@@ -63,7 +63,8 @@ interface I18nPluginInternalOptions {
    * - a function:
    *   @param page VuePress page object
    *   @param app VuePress app
-   * @note may significantly slow down dev server startup
+   *   @returns a mode name or a timestamp
+   * @note git mode may significantly slow down dev server startup
    * @default (_page, app) => app.env.isBuild || app.env.isDebug ? "git" : undefined
    */
   updatedTime:

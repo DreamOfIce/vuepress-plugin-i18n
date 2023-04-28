@@ -7,8 +7,8 @@
 ## 功能
 
 - [x] 填充翻译目录下不存在的页面
-- [x] 翻译过时提示(基于 git 数据)
-- [ ] HMR 支持
+- [x] 过时翻译提示(支持 `git`和文件数据源)
+- [c] HMR 支持
 - [ ] 开发指南
 
 ## 食用方法
@@ -50,11 +50,10 @@ export default defineUserConfig({
 ```ts
 interface I18nPluginOptions {
   /**
-   * 当 UpdatedTime 不存在时进行计算
-   * @note 可能大幅降低开发服务器启动速度
-   * @default app.env.isBuild || app.env.isDebug
+   * 源语言版本所在的路径
+   * @default "/"
    */
-  calcUpdatedTime: boolean;
+  baseLocalePath?: string;
   /**
    * 页面过滤器, 默认包含主页外所有由 markdown 文件生成的页面
    * @param page VuePress的 page 对象
@@ -62,24 +61,40 @@ interface I18nPluginOptions {
    */
   filter?: (page: Page) => boolean;
   /**
-   * 翻译指南的链接, 为空时不显示
-   */
-  translationGuide?: string;
-  /**
    * 自定义本地化配置, 应为一个以路径前缀为键，本地化数据为值的对象
    */
   locales?: Record<string, Partial<I18nPluginLocaleData>>;
   /**
-   * 源语言版本所在的路径
-   * @default "/"
+   * 向页面添加 tag `untranslated` 或 `outdated`
+   * 需在 [vuepress-plugin-blog2]{@link https://www.npmjs.com/package/vuepress-plugin-blog2} 前加载
+   * @default false
    */
-  baseLocalePath?: string;
+  tag?: boolean;
   /**
    * 提示功能配置, false 表示禁用
    * @see I18nPluginTipOptions
    * @default true
    */
   tip?: I18nPluginTipOptions | boolean;
+  /**
+   * 翻译指南的链接, 为空时不显示
+   */
+  translationGuide?: string;
+  /**
+   * 当 UpdatedTime 不存在时进行计算
+   * - `git`: 从 git 历史读取更新时间
+   * - `file`: 从文件信息读取更新时间
+   * - 一个函数:
+   *   @param page VuePress page 对象
+   *   @param app VuePress app
+   *   @returns 一个模式名或时间戳
+   * @note git 模式可能大幅降低开发服务器启动速度
+   * @default (_page, app) => app.env.isBuild || app.env.isDebug ? "git" : undefined
+   */
+  updatedTime:
+    | "git"
+    | "file"
+    | ((page: Page, app: App) => number | undefined | "git" | "file");
 }
 
 interface I18nPluginTipOptions {

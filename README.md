@@ -7,8 +7,8 @@ I18n plugin for [VuePress v2](https://github.com/vuepress/vuepress-next)
 ## Features
 
 - [x] Fill non-existent pages in translation directories
-- [x] Translation obsolescence alert (based on git data)
-- [ ] HMR support
+- [x] Translation obsolescence alert (based on git or file info)
+- [x] HMR support
 - [ ] Development guide
 
 ## Usage
@@ -48,11 +48,10 @@ export default defineUserConfig({
 ```ts
 interface I18nPluginOptions {
   /**
-   * Calculate updatedTime when not exist
-   * @note may significantly slow down dev server startup
-   * @default app.env.isBuild || app.env.isDebug
+   * Path prefix for source language version
+   * @default "/"
    */
-  calcUpdatedTime: boolean;
+  baseLocalePath?: string;
   /**
    * Page filter
    * @param page VuePress page object
@@ -60,18 +59,15 @@ interface I18nPluginOptions {
    */
   filter?: (page: Page) => boolean;
   /**
-   * Link to translation guide(in default locale)
-   */
-  translationGuide?: string;
-  /**
    * Custom locales for i18n plugin
    */
   locales?: Record<string, Partial<I18nPluginLocaleData>>;
   /**
-   * Path prefix for source language version
-   * @default "/"
+   * Add tag `untranslated` or `outdated` to page
+   * need to load before [vuepress-plugin-blog2]{@link https://www.npmjs.com/package/vuepress-plugin-blog2}
+   * @default false
    */
-  baseLocalePath?: string;
+  tag?: boolean;
   /**
    * Tip container options
    * @see I18nPluginTipOptions
@@ -79,11 +75,24 @@ interface I18nPluginOptions {
    */
   tip?: I18nPluginTipOptions | boolean;
   /**
-   * Add tag `untranslated` or `outdated` to page
-   * need to load before [vuepress-plugin-blog2]{@link https://www.npmjs.com/package/vuepress-plugin-blog2}
-   * @default false
+   * Link to translation guide(in default locale)
    */
-  tag?: boolean;
+  translationGuide?: string;
+  /**
+   * Calculate updatedTime when not exist
+   * - `git`: read updated time from git
+   * - `file`: read updated time from file info
+   * - a function:
+   *   @param page VuePress page object
+   *   @param app VuePress app
+   *   @returns a mode name or a timestamp
+   * @note git mode may significantly slow down dev server startup
+   * @default (_page, app) => app.env.isBuild || app.env.isDebug ? "git" : undefined
+   */
+  updatedTime?:
+    | "git"
+    | "file"
+    | ((page: Page, app: App) => number | undefined | "git" | "file");
 }
 
 interface I18nPluginTipOptions {
