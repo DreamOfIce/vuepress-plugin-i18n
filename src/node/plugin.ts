@@ -1,5 +1,10 @@
 import { getDirname, path } from "@vuepress/utils";
-import type { App, Plugin } from "@vuepress/core";
+import {
+  preparePageData,
+  type App,
+  type Plugin,
+  preparePagesComponents,
+} from "@vuepress/core";
 import { watch } from "chokidar";
 import type { Page } from "../shared/types.js";
 import { type I18nPluginOptions, getOptions } from "./options.js";
@@ -64,14 +69,17 @@ export const i18nPlugin =
             app.pages.forEach((p: Page) => {
               if (p.data.i18n?.sourceLink === page.path && p.data.i18n)
                 p.data.i18n.sourceUpdatedTime = page.data.i18n!.updatedTime!;
+              void preparePageData(app, page);
             });
           }
         });
+
         //  Remove filled page if source has been removed
         pageWatcher.on("unlink", (filePath) => {
           const { path, pathLocale } =
             getPageFromDataFilePath(app, filePath) ?? {};
           if (pathLocale === options.baseLocalePath && path) {
+            const pageCount = app.pages.length;
             app.pages = app.pages.filter(
               (page: Page) =>
                 !(
@@ -80,6 +88,8 @@ export const i18nPlugin =
                   page.data.i18n?.untranslated
                 )
             );
+            // Re-prepare only if some pages are removed
+            if (app.pages.length < pageCount) void preparePagesComponents(app);
           }
         });
         watcher.push(pageWatcher);
