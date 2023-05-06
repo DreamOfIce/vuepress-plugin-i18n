@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.7.1](https://github.com/DreamOfIce/vuepress-plugin-i18n/compare/v0.7.0...v0.7.1) (2023-05-06)
+
+### Bug Fixes
+
+- re-prepare file after modifying the app.pages ([5ebd24d](https://github.com/DreamOfIce/vuepress-plugin-i18n/commit/5ebd24da2989c8f528bf31519743f4982b8ef762))
+
 ## [0.7.0](https://github.com/DreamOfIce/vuepress-plugin-i18n/compare/v0.6.1...v0.7.0) (2023-04-28)
 
 ### ⚠ BREAKING CHANGES
