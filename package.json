@@ -8,37 +8,36 @@
     "vuepress-plugin",
     "i18n"
   ],
+  "homepage": "https://github.com/DreamOfIce/vuepress-plugin-i18n#readme",
+  "bugs": {
+    "url": "https://github.com/DreamOfIce/vuepress-plugin-i18n/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DreamOfIce/vuepress-plugin-i18n.git"
+  },
+  "license": "MIT",
+  "author": "冰雪殇璃陌梦 <admin@dreamofice.cn> (https://www.dreamofice.cn)",
   "type": "module",
-  "main": "./dist/node/index.js",
-  "types": "./dist/node/index.d.ts",
   "exports": {
     ".": "./dist/node/index.js",
     "./package.json": "./package.json"
   },
+  "main": "./dist/node/index.js",
+  "types": "./dist/node/index.d.ts",
   "files": [
     "dist",
     "README_zh-CN.md"
   ],
   "scripts": {
     "build": "vite build",
-    "lint": "pnpm run /^lint:.*/",
+    "lint": "pnpm run \"/^lint:.*/\"",
     "lint:eslint": "eslint --ext .ts --fix ./src",
     "lint:prettier": "prettier --write .",
     "prepare": "husky install",
     "release": "bumpp --execute=\"pnpm exec commit-and-tag-version && git add CHANGELOG.md\" --commit \"chore: release v%s\" --all --tag",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "冰雪殇璃陌梦 <admin@dreamofice.cn> (https://www.dreamofice.cn)",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/DreamOfIce/vuepress-plugin-i18n.git"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/DreamOfIce/vuepress-plugin-i18n/issues"
-  },
-  "homepage": "https://github.com/DreamOfIce/vuepress-plugin-i18n#readme",
-  "packageManager": "pnpm@8.4.0",
   "dependencies": {
     "@vuepress/client": "2.0.0-beta.61",
     "@vuepress/core": "2.0.0-beta.61",
@@ -67,7 +66,9 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-vue": "^9.11.0",
     "husky": "^8.0.3",
+    "nano-staged": "^0.8.0",
     "prettier": "^2.8.8",
+    "prettier-plugin-packagejson": "^2.4.3",
     "typescript": "^5.0.4",
     "vite": "^4.3.5",
     "vite-plugin-dts": "^2.3.0"
@@ -75,12 +76,13 @@
   "peerDependencies": {
     "vuepress": "2.0.0-beta.61"
   },
+  "packageManager": "pnpm@8.4.0",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
   "pnpm": {
     "overrides": {
       "ts-node": "npm:@dreamofice/ts-node@^10.9.2"
     }
-  },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org"
   }
 }
