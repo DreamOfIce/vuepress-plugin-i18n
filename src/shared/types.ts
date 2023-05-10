@@ -74,6 +74,7 @@ interface I18nPluginPageData {
   /** maybe added by @vuepress/plugin-git */
   git?: GitData;
 }
+
 interface I18nData {
   isOutdated: boolean;
   isUntranslated: boolean;
