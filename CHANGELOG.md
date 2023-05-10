@@ -1,3 +1,11 @@
+## [0.8.0](https://github.com/DreamOfIce/vuepress-plugin-i18n/compare/v0.7.1...v0.8.0) (2023-05-10)
+
+### Features
+
+- **client:** new helper funcuseI18nData() ([4daf8ca](https://github.com/DreamOfIce/vuepress-plugin-i18n/commit/4daf8ca661c70ace6be01358ef669a2eb1e829d4))
+- export types ([777d8a9](https://github.com/DreamOfIce/vuepress-plugin-i18n/commit/777d8a97bda44a0e0a21211e79a6abbd5da0d6bf))
+- support custom tip component, close [#10](https://github.com/DreamOfIce/vuepress-plugin-i18n/issues/10) ([02941fc](https://github.com/DreamOfIce/vuepress-plugin-i18n/commit/02941fcf3fd62a0523e87ad0db69fc8902650526))
+
 # Changelog
 
 ## [0.7.1](https://github.com/DreamOfIce/vuepress-plugin-i18n/compare/v0.7.0...v0.7.1) (2023-05-06)
