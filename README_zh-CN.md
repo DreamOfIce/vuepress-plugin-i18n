@@ -114,6 +114,12 @@ interface I18nPluginTipOptions {
    * @default ["custom-container-title", "hint-container-title"]
    */
   titleClass: string[];
+  /**
+   * 自定义提示组件名称，会被插入到页面顶部
+   * 注意: 你需要自行全局导入相应组件
+   * @default "I18nTip"
+   */
+  tipComponent: string;
 }
 ```
 
@@ -169,6 +175,41 @@ interface I18nPluginLocaleData {
  */
 type LinkRenderer = (text: string, href: string) => string;
 ```
+
+## Advanced
+
+### Client helper
+
+你可以使用 `useI18nData` 函数引入当前页面的 i18n 信息:
+
+```ts
+import { useI18nData } from "vuepress-plugin-i18n/client";
+
+const i18nData = useI18nData(); // 返回一个 I18nData 的计算属性 ref
+console.log(i18nData.value);
+```
+
+返回的 ref 的值的类型:
+
+```ts
+interface I18nData {
+  isOutdated: boolean;
+  isUntranslated: boolean;
+  locale: I18nPluginLocaleData;
+  options: {
+    baseLocalePath: string;
+    containerClass: string[];
+    titleClass: string[];
+  };
+  pathLocale: string;
+  sourceLink: string | undefined;
+  sourceUpdatedTime: number | undefined;
+  translationGuide: string | undefined;
+  updatedTime: number | undefined;
+}
+```
+
+此函数的一个一大用处是自定义提示组件，示例请参考[默认组件](./src/client/components/I18nTip.vue)的源代码
 
 ## License
 

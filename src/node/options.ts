@@ -23,6 +23,12 @@ interface I18nPluginTipOptions {
    * @default ["custom-container-title", "hint-container-title"]
    */
   titleClass: string[];
+  /**
+   * Name for tip component, which will be inserted at the top of the page
+   * NOTE: You need to import your component globally by yourself
+   * @default "I18nTip"
+   */
+  tipComponent: string;
 }
 
 interface I18nPluginInternalOptions {
@@ -86,6 +92,7 @@ const defaultOptions: I18nPluginInternalOptions = {
     enable: true,
     containerClass: ["custom-container", "hint-container"],
     titleClass: ["custom-container-title", "hint-container-title"],
+    tipComponent: "I18nTip",
   },
   tag: false,
   updatedTime: (_page, app) =>

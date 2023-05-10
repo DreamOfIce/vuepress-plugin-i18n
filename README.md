@@ -111,6 +111,12 @@ interface I18nPluginTipOptions {
    * @default ["custom-container-title", "hint-container-title"]
    */
   titleClass?: string[];
+  /**
+   * Name for tip component, which will be inserted at the top of the page
+   * NOTE: You need to import your custom component globally by yourself
+   * @default "I18nTip"
+   */
+  tipComponent: string;
 }
 ```
 
@@ -166,3 +172,42 @@ interface I18nPluginLocaleData {
  */
 type LinkRenderer = (text: string, href: string) => string;
 ```
+
+## Advanced
+
+### Client helper
+
+You can use the `useI18nData` function to import the i18n information for the current page:
+
+```ts
+import { useI18nData } from "vuepress-plugin-i18n";
+
+const i18nData = useI18nData(); // will return a computed ref of I18nData
+console.log(i18nData.value);
+```
+
+Type definition of computed property returned:
+
+```ts
+interface I18nData {
+  isOutdated: boolean;
+  isUntranslated: boolean;
+  locale: I18nPluginLocaleData;
+  options: {
+    baseLocalePath: string;
+    containerClass: string[];
+    titleClass: string[];
+  };
+  pathLocale: string;
+  sourceLink: string | undefined;
+  sourceUpdatedTime: number | undefined;
+  translationGuide: string | undefined;
+  updatedTime: number | undefined;
+}
+```
+
+A common use of this function is to write custom tip component, For an example, please refer to the source code of [default component](./src/client/components/I18nTip.vue)
+
+## License
+
+MIT
