@@ -1,20 +1,12 @@
 <script setup lang="ts">
-import { usePageData } from "@vuepress/client";
-import {
-  containerClass,
-  translationGuides,
-  locales,
-  baseLocalePath,
-  titleClass,
-} from "../define";
 import type {
   I18nData,
   I18nPluginLocaleData,
   LinkRenderer,
-  PageData,
 } from "../../shared/types";
 import { computed } from "vue";
 import { isAbsoluteUrl } from "vuepress-shared/client";
+import { useI18nData } from "../composables";
 
 type I18nPluginTipType = "untranslated" | "outdated";
 
@@ -24,28 +16,27 @@ const linkRenderer: LinkRenderer = (text, url) =>
 const getContent = (
   type: I18nPluginTipType,
   locale: I18nPluginLocaleData,
-  i18nData?: I18nData
+  i18nData: I18nData
 ) => {
   switch (type) {
     case "untranslated":
       return locale.untranslated.content(
         linkRenderer,
-        translationGuides[i18nData?.pathLocale ?? baseLocalePath] ??
-          translationGuides[baseLocalePath]
+        i18nData.translationGuide
       );
     case "outdated":
       if (
-        !i18nData?.updatedTime ||
-        !i18nData?.sourceUpdatedTime ||
-        !i18nData?.sourceLink
+        !i18nData.updatedTime ||
+        !i18nData.sourceUpdatedTime ||
+        !i18nData.sourceLink
       ) {
         return null;
       } else {
         return locale.outdated.content(
           linkRenderer,
-          i18nData?.sourceUpdatedTime,
-          i18nData?.updatedTime,
-          i18nData?.sourceLink
+          i18nData.sourceUpdatedTime,
+          i18nData.updatedTime,
+          i18nData.sourceLink
         );
       }
     default:
@@ -53,17 +44,14 @@ const getContent = (
   }
 };
 
-const pageData = usePageData<PageData>();
-const locale = computed(
-  () =>
-    locales[pageData.value.i18n?.pathLocale ?? baseLocalePath] ??
-    locales[baseLocalePath]!
-);
+const i18nData = useI18nData();
+const { containerClass, titleClass } = i18nData.value.options;
+const locale = computed(() => i18nData.value.locale);
 const showTips = computed(
-  () => pageData.value.i18n?.untranslated || pageData.value.i18n?.outdated
+  () => i18nData.value.isUntranslated || i18nData.value.isOutdated
 );
 const tipType = computed(() =>
-  pageData.value.i18n?.untranslated ? "untranslated" : "outdated"
+  i18nData.value.isUntranslated ? "untranslated" : "outdated"
 );
 const containerType = computed(() =>
   tipType.value === "untranslated" ? "tip" : "warning"
@@ -71,7 +59,7 @@ const containerType = computed(() =>
 const containerTitle = computed(() => locale.value[tipType.value].title);
 const containerContent = computed(() =>
   showTips.value
-    ? getContent(tipType.value, locale.value, pageData.value.i18n)
+    ? getContent(tipType.value, locale.value, i18nData.value)
     : null
 );
 </script>

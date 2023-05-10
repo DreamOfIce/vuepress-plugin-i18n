@@ -60,7 +60,7 @@ interface I18nPluginFrontmatter {
   tag?: string[];
 }
 
-interface I18nData {
+interface I18nPageData {
   pathLocale?: string;
   outdated?: boolean;
   sourceLink?: string;
@@ -70,17 +70,33 @@ interface I18nData {
 }
 
 interface I18nPluginPageData {
-  i18n?: I18nData;
+  i18n?: I18nPageData;
   /** maybe added by @vuepress/plugin-git */
   git?: GitData;
+}
+interface I18nData {
+  isOutdated: boolean;
+  isUntranslated: boolean;
+  locale: I18nPluginLocaleData;
+  options: {
+    baseLocalePath: string;
+    containerClass: string[];
+    titleClass: string[];
+  };
+  pathLocale: string;
+  sourceLink: string | undefined;
+  sourceUpdatedTime: number | undefined;
+  translationGuide: string | undefined;
+  updatedTime: number | undefined;
 }
 
 type Page = _Page<I18nPluginPageData, I18nPluginFrontmatter>;
 type PageData = _PageData<I18nPluginPageData>;
 
 export type {
-  I18nPluginFrontmatter,
   I18nData,
+  I18nPluginFrontmatter,
+  I18nPageData,
   I18nPluginLocaleData,
   I18nPluginPageData,
   LinkRenderer,
