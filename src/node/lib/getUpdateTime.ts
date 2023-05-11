@@ -6,8 +6,8 @@ import type { I18nPluginInternalOptions } from "../options.js";
 import { logger } from "../utils.js";
 import type { Page } from "../../shared/types.js";
 
-let inGitRepo: boolean;
-const isGitRepo = (cwd: string) => (inGitRepo ??= checkGitRepo(cwd));
+const inGitRepo: Record<string, boolean> = {};
+const isGitRepo = (cwd: string) => (inGitRepo[cwd] ??= checkGitRepo(cwd));
 
 export const getUpdateTime = async (
   page: Page,

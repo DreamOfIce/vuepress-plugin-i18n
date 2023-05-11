@@ -7,7 +7,7 @@ I18n plugin for [VuePress v2](https://github.com/vuepress/vuepress-next)
 ## Features
 
 - [x] Fill non-existent pages in translation directories
-- [x] Translation obsolescence alert (based on git or file info)
+- [x] Translation outdated alert (based on git or file info)
 - [x] HMR support
 - [ ] Development guide
 
