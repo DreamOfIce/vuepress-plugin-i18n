@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.8.1](https://github.com/DreamOfIce/vuepress-plugin-i18n/compare/v0.8.0...v0.8.1) (2023-05-11)
+
+### Bug Fixes
+
+- fix a git repository detection error ([c210c85](https://github.com/DreamOfIce/vuepress-plugin-i18n/commit/c210c85ce95063e40f09dad590dcd037689c7f51))
+
+# Changelog
+
 ## [0.8.0](https://github.com/DreamOfIce/vuepress-plugin-i18n/compare/v0.7.1...v0.8.0) (2023-05-10)
 
 ### Features
