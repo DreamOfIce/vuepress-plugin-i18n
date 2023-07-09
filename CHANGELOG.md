@@ -1,5 +1,3 @@
-# Changelog
-
 ## [0.8.2](https://github.com/DreamOfIce/vuepress-plugin-i18n/compare/v0.8.1...v0.8.2) (2023-05-12)
 
 ## [0.8.1](https://github.com/DreamOfIce/vuepress-plugin-i18n/compare/v0.8.0...v0.8.1) (2023-05-11)

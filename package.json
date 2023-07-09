@@ -36,7 +36,7 @@
     "lint:eslint": "eslint --ext .ts --fix ./src",
     "lint:prettier": "prettier --write .",
     "prepare": "husky install",
-    "release": "release-it",
+    "release": "dotenv release-it",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -61,6 +61,7 @@
     "@vue/tsconfig": "^0.3.2",
     "@vuepress/markdown": "2.0.0-beta.64",
     "@vuepress/plugin-git": "2.0.0-beta.64",
+    "dotenv-cli": "^7.2.1",
     "esbuild-plugin-vue3": "^0.3.2",
     "eslint": "^8.44.0",
     "eslint-config-prettier": "^8.8.0",
