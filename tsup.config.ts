@@ -7,7 +7,7 @@ export default defineConfig({
     "client/index": "src/client/index.ts",
     "client/config": "src/client/config.ts",
   },
-  target: "node14",
+  target: "node16",
   format: ["esm"],
   dts: true,
   sourcemap: true,
