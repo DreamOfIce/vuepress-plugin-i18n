@@ -40,14 +40,14 @@ const addComponent = (app: App, page: Page, name: string) => {
               }
             : {}),
         },
-      })
+      }),
     );
   }
 };
 
 const getLocales = (
   siteData: SiteData,
-  customLocales: Record<string, Partial<I18nPluginLocaleData>>
+  customLocales: Record<string, Partial<I18nPluginLocaleData>>,
 ) =>
   Object.fromEntries(
     Object.entries(siteData.locales).map(([path, { lang = siteData.lang }]) => [
@@ -57,9 +57,9 @@ const getLocales = (
         pluginLocaleData[lang] ??
           pluginLocaleData[siteData.lang] ??
           pluginLocaleData["en-US"]!,
-        customLocales[lang]
+        customLocales[lang],
       ),
-    ])
+    ]),
   ) as Record<string, I18nPluginLocaleData>;
 
 const getPageFromDataFilePath = (app: App, path: string) =>

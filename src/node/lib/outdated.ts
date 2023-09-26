@@ -6,12 +6,12 @@ import { logger } from "../utils.js";
 export const markOutdatedPage = (
   page: Page,
   app: App,
-  options: I18nPluginInternalOptions
+  options: I18nPluginInternalOptions,
 ) => {
   if (page.pathLocale !== options.baseLocalePath) {
     const baseLocalePath = page.data.i18n?.sourceLink;
     const sourcePage = (app.pages as Page[]).find(
-      (p) => p.path === baseLocalePath
+      (p) => p.path === baseLocalePath,
     );
     const sourceUpdateTime = sourcePage?.data.i18n?.updatedTime;
     const translationUpdateTime = page.data.i18n?.updatedTime;

@@ -29,7 +29,7 @@ const getCodeStr: (input: unknown) => string = (input) => {
         return `{${Object.entries(input)
           .map(
             ([key, value]) =>
-              `${keyRegExp.exec(key) ? key : `"${key}"`}: ${getCodeStr(value)}`
+              `${keyRegExp.exec(key) ? key : `"${key}"`}: ${getCodeStr(value)}`,
           )
           .join(",")}}`;
     }
@@ -52,20 +52,20 @@ const gettranslationGuides = (app: App, translationGuide?: string) => {
 const writeLocales = async (
   app: App,
   locales: Record<string, I18nPluginLocaleData>,
-  { translationGuide }: I18nPluginInternalOptions
+  { translationGuide }: I18nPluginInternalOptions,
 ) => {
   await app.writeTemp(
     "i18n-locales.js",
     `export const translationGuides = ${getCodeStr(
-      gettranslationGuides(app, translationGuide)
+      gettranslationGuides(app, translationGuide),
     )};
-    export const locales = ${getCodeStr(locales)};`
+    export const locales = ${getCodeStr(locales)};`,
   );
   if (app.env.isDebug)
     logger.info(
       `I18n plugin locales has been written to ${colors.green(
-        app.dir.temp("i18n-locales.js")
-      )}`
+        app.dir.temp("i18n-locales.js"),
+      )}`,
     );
 };
 

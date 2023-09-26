@@ -162,7 +162,7 @@ interface I18nPluginLocaleData {
       linkRenderer: LinkRenderer,
       sourceUpdateTime: number,
       translationUpdateTime: number,
-      sourceLink: string
+      sourceLink: string,
     ) => string;
   };
 }

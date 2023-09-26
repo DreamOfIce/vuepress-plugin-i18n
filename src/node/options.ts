@@ -101,7 +101,7 @@ const defaultOptions: I18nPluginInternalOptions = {
 
 const getOptions: (
   app: App,
-  options: I18nPluginOptions
+  options: I18nPluginOptions,
 ) => I18nPluginInternalOptions = (app, options) => ({
   ...defaultOptions,
   calcUpdatedTime: app.env.isBuild || app.env.isDebug,
@@ -113,7 +113,7 @@ const getOptions: (
         }
       : options.tip ?? defaultOptions.tip,
   ...Object.fromEntries(
-    Object.entries(options).filter(([key]) => key !== "tip")
+    Object.entries(options).filter(([key]) => key !== "tip"),
   ),
 });
 export {

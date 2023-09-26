@@ -12,12 +12,12 @@ import { logger } from "../utils.js";
 const fillUntranslatedPages = async (
   page: Page,
   app: App,
-  options: I18nPluginInternalOptions
+  options: I18nPluginInternalOptions,
 ) => {
   if (page.pathLocale === options.baseLocalePath) {
     const siteLocales = app.siteData.locales;
     const translationPrefixs = Object.keys(siteLocales).filter(
-      (path) => path !== options.baseLocalePath
+      (path) => path !== options.baseLocalePath,
     );
     const renderList: Promise<Page>[] = [];
 
@@ -50,8 +50,8 @@ const fillUntranslatedPages = async (
       if (app.env.isDebug)
         logger.info(
           `Fill page ${colors.green(
-            pageOptions.path
-          )} with source ${colors.green(page.path)}`
+            pageOptions.path,
+          )} with source ${colors.green(page.path)}`,
         );
     }
     app.pages.push(...(await Promise.all(renderList)));

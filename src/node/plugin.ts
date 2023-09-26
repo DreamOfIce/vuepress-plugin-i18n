@@ -54,7 +54,7 @@ export const i18nPlugin =
               markOutdatedPage(page, app, options);
               await fillUntranslatedPages(page, app, options);
             }
-          })
+          }),
         );
       },
       onPrepared: async (app) =>
@@ -87,7 +87,7 @@ export const i18nPlugin =
                   page.path ===
                     path.replace(options.baseLocalePath, page.pathLocale) &&
                   page.data.i18n?.untranslated
-                )
+                ),
             );
             // Re-prepare only if some pages are removed
             if (app.pages.length < pageCount) void preparePagesComponents(app);

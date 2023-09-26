@@ -12,7 +12,7 @@ const isGitRepo = (cwd: string) => (inGitRepo[cwd] ??= checkGitRepo(cwd));
 export const getUpdateTime = async (
   page: Page,
   app: App,
-  options: I18nPluginInternalOptions
+  options: I18nPluginInternalOptions,
 ): Promise<number | undefined> => {
   let updatedTimeType = options.updatedTime;
   if (typeof updatedTimeType === "function") {
@@ -30,10 +30,10 @@ export const getUpdateTime = async (
           [
             page.filePathRelative,
             ...(page.frontmatter.gitInclude ?? []).map((item) =>
-              path.join(page.filePathRelative, "..", item)
+              path.join(page.filePathRelative, "..", item),
             ),
           ],
-          cwd
+          cwd,
         );
       }
       break;
@@ -46,7 +46,7 @@ export const getUpdateTime = async (
     }
     default: {
       logger.warn(
-        `Invalid updatedTime type: ${updatedTimeType as string}, ignored.`
+        `Invalid updatedTime type: ${updatedTimeType as string}, ignored.`,
       );
       break;
     }

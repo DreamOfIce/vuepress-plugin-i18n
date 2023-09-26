@@ -17,17 +17,17 @@ const zhLocaleData: I18nPluginLocaleData = {
       linkRenderer,
       sourceUpdateTime,
       translationUpdateTime,
-      sourceLink
+      sourceLink,
     ) => {
       const getDateString = (timestamp: number) => {
         const date = new Date(timestamp);
         return `${date.getFullYear()}年${date.getMonth()}月${date.getDate()}日`;
       };
       return `本页面最后修改于${getDateString(
-        translationUpdateTime
+        translationUpdateTime,
       )}，原文已在${getDateString(sourceUpdateTime)}更新。${linkRenderer(
         "查看原文",
-        sourceLink
+        sourceLink,
       )}`;
     },
   },
