@@ -40,51 +40,49 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@vuepress/client": "2.0.0-beta.64",
-    "@vuepress/core": "2.0.0-beta.64",
-    "@vuepress/utils": "2.0.0-beta.64",
+    "@vuepress/client": "2.0.0-beta.67",
+    "@vuepress/core": "2.0.0-beta.67",
+    "@vuepress/utils": "2.0.0-beta.67",
     "chokidar": "^3.5.3",
     "vue": "^3.3.4",
-    "vuepress": "2.0.0-beta.64",
-    "vuepress-shared": "2.0.0-beta.230"
+    "vuepress": "2.0.0-beta.67",
+    "vuepress-shared": "2.0.0-beta.237"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.6.6",
-    "@commitlint/config-conventional": "^17.6.6",
-    "@release-it/conventional-changelog": "^5.1.1",
-    "@tsconfig/esm": "^1.0.4",
-    "@tsconfig/node-lts": "^18.12.3",
-    "@tsconfig/strictest": "^2.0.1",
-    "@types/node": "^18.16.19",
-    "@typescript-eslint/eslint-plugin": "^5.61.0",
-    "@typescript-eslint/parser": "^5.61.0",
-    "@vue/tsconfig": "^0.3.2",
-    "@vuepress/markdown": "2.0.0-beta.64",
-    "@vuepress/plugin-git": "2.0.0-beta.64",
-    "dotenv-cli": "^7.2.1",
+    "@commitlint/cli": "^17.7.1",
+    "@commitlint/config-conventional": "^17.7.0",
+    "@release-it/conventional-changelog": "^7.0.2",
+    "@tsconfig/node-lts": "^18.12.5",
+    "@tsconfig/strictest": "^2.0.2",
+    "@types/node": "^18.18.0",
+    "@typescript-eslint/eslint-plugin": "^6.7.3",
+    "@typescript-eslint/parser": "^6.7.3",
+    "@vue/tsconfig": "^0.4.0",
+    "@vuepress/markdown": "2.0.0-beta.67",
+    "@vuepress/plugin-git": "2.0.0-beta.67",
+    "dotenv-cli": "^7.3.0",
     "esbuild-plugin-vue3": "^0.3.2",
-    "eslint": "^8.44.0",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-vue": "^9.15.1",
+    "eslint": "^8.50.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-vue": "^9.17.0",
     "husky": "^8.0.3",
     "nano-staged": "^0.8.0",
-    "prettier": "^2.8.8",
-    "prettier-plugin-packagejson": "^2.4.4",
-    "release-it": "^15.11.0",
-    "tsup": "^6.7.0",
-    "typescript": "^5.1.6"
+    "prettier": "^3.0.3",
+    "prettier-plugin-packagejson": "^2.4.5",
+    "release-it": "^16.2.0",
+    "tsup": "^7.2.0",
+    "typescript": "^5.2.2"
   },
   "peerDependencies": {
-    "vuepress": "2.0.0-beta.64"
+    "vuepress": "2.0.0-beta.67"
   },
-  "packageManager": "pnpm@8.5.1",
+  "packageManager": "pnpm@8.8.0",
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
   },
   "pnpm": {
     "overrides": {
-      "ts-node": "npm:@dreamofice/ts-node@^10.9.2",
-      "esbuild": "^0.17.18"
+      "ts-node": "npm:@dreamofice/ts-node@^10.9.2"
     }
   }
 }
